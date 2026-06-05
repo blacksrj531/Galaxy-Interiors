@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
         }
 
         html {
@@ -58,6 +59,54 @@
             transition: background-color 0.4s ease, color 0.3s ease;
         }
 
+        /* ========== CUSTOM CURSOR ========== */
+        .cursor {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.08s linear, width 0.2s ease, height 0.2s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            opacity: 0.8;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
+        }
+
+        /* Hover effect for interactive elements */
+        a:hover ~ .cursor,
+        button:hover ~ .cursor,
+        .project-card:hover ~ .cursor,
+        .service-card-glass:hover ~ .cursor,
+        .cta-btn:hover ~ .cursor,
+        .nav-links a:hover ~ .cursor,
+        .social-links a:hover ~ .cursor,
+        .carousel-dot:hover ~ .cursor {
+            width: 60px;
+            height: 60px;
+            background: rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        @media (max-width: 768px) {
+            .cursor, .cursor-follower { display: none; }
+            * { cursor: auto; }
+        }
+
         /* ========== PRELOADER / WELCOME SCREEN ========== */
         .preloader {
             position: fixed;
@@ -85,24 +134,7 @@
             text-align: center;
         }
         
-        /* ========== LOGO PLACEHOLDER - REPLACE THIS SECTION WITH YOUR IMAGE ========== */
-        /* Option 1: Uncomment and use this for an IMAGE file */
-        /*
-        .custom-logo {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 2rem;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        .custom-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        */
-        
-        /* Option 2: Current SVG icon - Replace this entire SVG with your image */
+        /* Logo placeholder */
         .custom-icon {
             width: 200px;
             height: 200px;
@@ -117,7 +149,6 @@
             filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
         
-        /* Drawing animation for SVG paths */
         .custom-icon svg .house-path,
         .custom-icon svg .armchair-path,
         .custom-icon svg .lamp-path,
@@ -179,7 +210,6 @@
             letter-spacing: 1px;
         }
 
-        /* Mobile responsive adjustments */
         @media (max-width: 768px) {
             .custom-icon {
                 width: 140px;
@@ -198,40 +228,6 @@
                 width: 200px;
             }
         }
-
-        /* custom cursor */
-        .cursor {
-            width: 32px;
-            height: 32px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.08s linear, width 0.2s ease, height 0.2s ease;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-            opacity: 0.7;
-        }
-        .cursor-follower {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.12s ease;
-            transform: translate(-50%, -50%);
-        }
-        @media (max-width: 768px) {
-            .cursor, .cursor-follower { display: none; }
-            body { cursor: auto; }
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         /* theme toggle */
         .theme-toggle {
@@ -342,29 +338,65 @@
             .nav-links a { font-size: 1.2rem; }
         }
 
-        /* hero section */
+        /* ========== HERO SECTION WITH CAROUSEL ========== */
         .hero {
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
-        .hero-bg {
+        
+        .carousel-container {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            filter: brightness(0.45);
             z-index: 0;
         }
-        body.light .hero-bg { filter: brightness(0.75); }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+        }
+        
+        body.light .carousel-slide::before {
+            background: rgba(0, 0, 0, 0.25);
+        }
+        
         .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
             z-index: 2;
+            width: 100%;
             padding: 0 5%;
         }
+        
         .hero-content h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(3rem, 8vw, 6rem);
@@ -373,14 +405,18 @@
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(40px);
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
+        
         .hero-line {
             width: 80px;
-            height: 1px;
+            height: 2px;
             background: var(--accent);
             margin: 2rem auto;
             opacity: 0;
         }
+        
         .hero-content p {
             font-size: clamp(0.8rem, 2vw, 1rem);
             letter-spacing: 4px;
@@ -388,7 +424,10 @@
             font-weight: 300;
             opacity: 0;
             transform: translateY(30px);
+            color: #fff;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
         }
+        
         .cta-btn {
             margin-top: 3rem;
             display: inline-block;
@@ -403,11 +442,43 @@
             opacity: 0;
             transform: translateY(20px);
             cursor: pointer;
+            backdrop-filter: blur(5px);
         }
+        
         .cta-btn:hover {
             background: var(--accent);
-            color: var(--bg-primary);
+            color: #0a0a0a;
             box-shadow: 0 0 30px var(--accent-glow);
+        }
+        
+        /* Carousel dots navigation */
+        .carousel-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 3;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            background: var(--accent);
+            width: 30px;
+            border-radius: 5px;
+        }
+        
+        .carousel-dot:hover {
+            background: var(--accent);
         }
 
         section {
@@ -733,6 +804,9 @@
             .query-form { order: 1; }
             .reviews-scroll-container { height: 300px; }
             .service-card-glass { padding: 1.5rem; margin: 1rem; }
+            .carousel-dots { bottom: 15px; gap: 8px; }
+            .carousel-dot { width: 8px; height: 8px; }
+            .carousel-dot.active { width: 20px; }
         }
 
         .stats-grid {
@@ -804,47 +878,16 @@
 </head>
 <body>
 
+<!-- CUSTOM CURSOR ELEMENTS -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
 <!-- PRELOADER / WELCOME SCREEN -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
-        
-        <!-- ========================================================== -->
-        <!-- === LOGO PLACEHOLDER - EASILY REPLACE WITH YOUR IMAGE === -->
-        <!-- ========================================================== -->
-        <!-- 
-            TO ADD YOUR OWN LOGO IMAGE:
-            
-            OPTION 1 (Recommended): Use an image file
-            1. Save your logo image as "logo.png" or "logo.jpg"
-            2. Place it in the same folder as this HTML file
-            3. Replace the code between the comments below with:
-            
-            <div class="custom-icon">
-                <img src="logo.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
-            </div>
-            
-            OPTION 2: Use a URL from the web
-            Replace the src with your image URL:
-            <img src="https://your-image-url.com/logo.png" ...>
-            
-            OPTION 3: Keep the current SVG icon (default)
-        -->
-        
-        <!-- CURRENT SVG ICON - REPLACE THIS WHOLE DIV WITH YOUR IMAGE -->
         <div class="custom-icon">
-    <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
+    <img src="C:\Users\srjen\OneDrive\Desktop\Galaxy Interiors\logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
 </div>
-        
-        <!-- 
-            ===== TO REPLACE WITH YOUR IMAGE, REPLACE THE ABOVE <div class="custom-icon">...</div> WITH:
-            
-            <div class="custom-icon">
-                <img src="your-logo-file-name.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
-            </div>
-            
-            Make sure your image file is in the same folder as this HTML file.
-        -->
-        
         <div class="preloader-logo">GALAXY INTERIORS</div>
         <div class="preloader-sub">luxury redefined</div>
         <div class="loading-bar-container">
@@ -854,9 +897,25 @@
     </div>
 </div>
 
+<!-- HERO SECTION WITH CAROUSEL -->
+<div class="hero" id="home">
+    <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+    </div>
+    <div class="hero-content">
+        <h1>Where Light<br>Meets Legacy</h1>
+        <div class="hero-line"></div>
+        <p>Bespoke Interiors • Global Atelier</p>
+        <a href="#portfolio" class="cta-btn" id="heroCta">DISCOVER THE ATELIER</a>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
 <!-- rest of the website content -->
-<div class="cursor"></div>
-<div class="cursor-follower"></div>
 <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
 
 <nav>
@@ -873,16 +932,6 @@
 </nav>
 
 <div id="mainContent" style="opacity:0; transition: opacity 1.2s ease;">
-    <div class="hero" id="home">
-        <img src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Luxury interior" class="hero-bg">
-        <div class="hero-content">
-            <h1>Where Light<br>Meets Legacy</h1>
-            <div class="hero-line"></div>
-            <p>Bespoke Interiors • Global Atelier</p>
-            <a href="#portfolio" class="cta-btn" id="heroCta">DISCOVER THE ATELIER</a>
-        </div>
-    </div>
-
     <section id="portfolio">
         <div class="section-sub">Curated Spaces</div>
         <div class="section-title">Signature Works</div>
@@ -952,12 +1001,109 @@
                     initGSAP();
                     renderReviews();
                     setupEventListeners();
+                    startCarousel();
+                    initCustomCursor();
                 }});
             }, 300);
         }
         if (loadingBar) loadingBar.style.width = progress + "%";
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
+
+    // ========== CUSTOM CURSOR FUNCTION ==========
+    function initCustomCursor() {
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        if (!cursor || !cursorFollower) return;
+        
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            followerX = mouseX;
+            followerY = mouseY;
+        });
+        
+        function animateFollower() {
+            followerX += (mouseX - followerX) * 0.12;
+            followerY += (mouseY - followerY) * 0.12;
+            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
+        
+        // Hover effect for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-card-glass, .carousel-dot');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '70px';
+                cursor.style.height = '70px';
+                cursor.style.background = 'rgba(212, 175, 55, 0.3)';
+                cursor.style.backdropFilter = 'blur(4px)';
+                cursorFollower.style.opacity = '0';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '32px';
+                cursor.style.height = '32px';
+                cursor.style.background = '#d4af37';
+                cursor.style.backdropFilter = 'none';
+                cursorFollower.style.opacity = '0.6';
+            });
+        });
+    }
+
+    // ========== CAROUSEL FUNCTIONALITY ==========
+    let currentSlide = 0;
+    let slideInterval;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carouselDots');
+    
+    function createDots() {
+        if (!dotsContainer) return;
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+    }
+    
+    function goToSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) slide.classList.add('active');
+        });
+        const dots = document.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, i) => {
+            dot.classList.remove('active');
+            if (i === index) dot.classList.add('active');
+        });
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        let next = currentSlide + 1;
+        if (next >= slides.length) next = 0;
+        goToSlide(next);
+    }
+    
+    function startCarousel() {
+        if (slides.length > 0) {
+            slides[0].classList.add('active');
+            createDots();
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+    }
+    
+    // Hero text animation
+    gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
+    gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" });
+    gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" });
+    gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" });
 
     let scrollInterval = null;
     let reviews = [
@@ -996,8 +1142,6 @@
     }
     function initGSAP(){
         gsap.registerPlugin(ScrollTrigger);
-        gsap.timeline().to('.hero-content h1',{opacity:1,y:0,duration:1.2}).to('.hero-line',{opacity:1,width:120,duration:1},"-0.5").to('.hero-content p',{opacity:1,y:0,duration:1},"-0.6").to('.cta-btn',{opacity:1,y:0,duration:1},"-0.4");
-        gsap.to('.hero-bg',{scale:1.1,duration:1.5,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:0.8}});
         gsap.utils.toArray('#portfolio, #about, #contact-review, #contact-stats').forEach(s=>{gsap.from(s,{opacity:0,y:60,duration:1,scrollTrigger:{trigger:s,start:'top 85%',once:true}});});
         document.querySelectorAll('.service-card-glass').forEach(c=>{gsap.fromTo(c,{y:50,opacity:0},{y:0,opacity:1,duration:1,scrollTrigger:{trigger:c.closest('.parallax-service'),start:'top 75%',once:true}});});
     }
@@ -1012,10 +1156,7 @@
     document.getElementById('logo')?.addEventListener('click',(e)=>{e.preventDefault(); smoothScroll('#home');});
     document.addEventListener('click',(e)=>{ if(navLinksContainer.classList.contains('active')&&!navLinksContainer.contains(e.target)&&!mobileMenuBtn.contains(e.target)) closeMobileMenu(); });
     window.addEventListener('resize',()=>{if(window.innerWidth>768) closeMobileMenu();});
-    const cursor=document.querySelector('.cursor'), cf=document.querySelector('.cursor-follower'); let mx=0,my=0,fx=0,fy=0;
-    if(cursor&&cf){ document.addEventListener('mousemove',(e)=>{mx=e.clientX;my=e.clientY;cursor.style.transform=`translate(${mx}px,${my}px)`;fx=mx;fy=my;}); function anim(){ fx+=(mx-fx)*0.15; fy+=(my-fy)*0.15; cf.style.transform=`translate(${fx}px,${fy}px)`; requestAnimationFrame(anim); } anim(); }
-    const inter=document.querySelectorAll('.cta-btn, .nav-links a, .social-links a, .project-card, .service-card-glass, .theme-toggle, .logo');
-    inter.forEach(el=>{el.addEventListener('mouseenter',()=>{if(cursor){cursor.style.width='70px';cursor.style.height='70px';cursor.style.opacity='0.5';}if(cf)cf.style.opacity='0';});el.addEventListener('mouseleave',()=>{if(cursor){cursor.style.width='32px';cursor.style.height='32px';cursor.style.opacity='0.7';}if(cf)cf.style.opacity='1';});});
+    
     const tt=document.getElementById('themeToggle'), tIcon=tt?.querySelector('i'); if(tt){ tt.addEventListener('click',()=>{document.body.classList.toggle('light'); if(document.body.classList.contains('light')){ tIcon.classList.remove('fa-moon'); tIcon.classList.add('fa-sun'); localStorage.setItem('theme','light'); } else { tIcon.classList.remove('fa-sun'); tIcon.classList.add('fa-moon'); localStorage.setItem('theme','dark'); } }); if(localStorage.getItem('theme')==='light'){ document.body.classList.add('light'); tIcon.classList.remove('fa-moon'); tIcon.classList.add('fa-sun'); } }
     window.addEventListener('scroll',()=>{const nav=document.querySelector('nav'); if(window.scrollY>50) nav.style.padding='1rem 5%'; else nav.style.padding='1.5rem 5%';});
 </script>

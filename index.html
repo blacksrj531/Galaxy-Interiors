@@ -85,11 +85,28 @@
             text-align: center;
         }
         
-        /* Custom SVG Icon - Minimalist Home Environment */
+        /* ========== LOGO PLACEHOLDER - REPLACE THIS SECTION WITH YOUR IMAGE ========== */
+        /* Option 1: Uncomment and use this for an IMAGE file */
+        /*
+        .custom-logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        .custom-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        */
+        
+        /* Option 2: Current SVG icon - Replace this entire SVG with your image */
         .custom-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 1.5rem;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
             opacity: 0;
             transform: scale(0.8);
         }
@@ -97,9 +114,10 @@
         .custom-icon svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
         
+        /* Drawing animation for SVG paths */
         .custom-icon svg .house-path,
         .custom-icon svg .armchair-path,
         .custom-icon svg .lamp-path,
@@ -131,8 +149,8 @@
         }
         
         .preloader-sub {
-            font-size: 0.8rem;
-            letter-spacing: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
             color: var(--accent);
             text-transform: uppercase;
             margin-top: 1rem;
@@ -140,7 +158,7 @@
         }
         
         .loading-bar-container {
-            width: 220px;
+            width: 260px;
             height: 2px;
             background: rgba(212, 175, 55, 0.2);
             border-radius: 2px;
@@ -154,16 +172,31 @@
             transition: width 0.1s linear;
         }
         .loading-percent {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: var(--accent);
-            margin-top: 0.5rem;
+            margin-top: 0.6rem;
             font-family: monospace;
+            letter-spacing: 1px;
         }
 
+        /* Mobile responsive adjustments */
         @media (max-width: 768px) {
-            .preloader-logo { font-size: 2.2rem; letter-spacing: 3px; }
-            .custom-icon { width: 80px; height: 80px; }
-            .preloader-sub { font-size: 0.6rem; letter-spacing: 3px; }
+            .custom-icon {
+                width: 140px;
+                height: 140px;
+                margin-bottom: 1.5rem;
+            }
+            .preloader-logo { 
+                font-size: 2.2rem; 
+                letter-spacing: 3px; 
+            }
+            .preloader-sub { 
+                font-size: 0.65rem; 
+                letter-spacing: 3px; 
+            }
+            .loading-bar-container {
+                width: 200px;
+            }
         }
 
         /* custom cursor */
@@ -774,30 +807,44 @@
 <!-- PRELOADER / WELCOME SCREEN -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
-        <!-- Custom minimalist home environment icon -->
+        
+        <!-- ========================================================== -->
+        <!-- === LOGO PLACEHOLDER - EASILY REPLACE WITH YOUR IMAGE === -->
+        <!-- ========================================================== -->
+        <!-- 
+            TO ADD YOUR OWN LOGO IMAGE:
+            
+            OPTION 1 (Recommended): Use an image file
+            1. Save your logo image as "logo.png" or "logo.jpg"
+            2. Place it in the same folder as this HTML file
+            3. Replace the code between the comments below with:
+            
+            <div class="custom-icon">
+                <img src="logo.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            
+            OPTION 2: Use a URL from the web
+            Replace the src with your image URL:
+            <img src="https://your-image-url.com/logo.png" ...>
+            
+            OPTION 3: Keep the current SVG icon (default)
+        -->
+        
+        <!-- CURRENT SVG ICON - REPLACE THIS WHOLE DIV WITH YOUR IMAGE -->
         <div class="custom-icon">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- House Silhouette (left side) -->
-                <path class="house-path" d="M20 50 L20 30 L45 15 L70 30 L70 50" stroke="#d4af37" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- House roof peak -->
-                <path class="house-path" d="M20 30 L45 15 L70 30" stroke="#d4af37" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-                <!-- Pendant Light hanging from roof peak -->
-                <line class="light-path" x1="45" y1="15" x2="45" y2="28" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="2 2"/>
-                <circle class="light-path" cx="45" cy="30" r="2" fill="#d4af37" stroke="none"/>
-                <!-- Armchair inside house (simple blocky shape) -->
-                <rect class="armchair-path" x="35" y="42" width="14" height="10" rx="2" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                <path class="armchair-path" d="M35 42 L35 38 L40 38 L40 42" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                <path class="armchair-path" d="M49 42 L49 38 L44 38 L44 42" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                <!-- Door/Room Frame (right side overlapping house) -->
-                <rect class="door-path" x="60" y="35" width="16" height="25" rx="1" stroke="#d4af37" stroke-width="1.5" fill="none"/>
-                <!-- Floor Lamp inside door frame (tripod + lamp head) -->
-                <line class="lamp-path" x1="68" y1="60" x2="64" y2="48" stroke="#d4af37" stroke-width="1.5"/>
-                <line class="lamp-path" x1="68" y1="60" x2="72" y2="48" stroke="#d4af37" stroke-width="1.5"/>
-                <line class="lamp-path" x1="68" y1="60" x2="68" y2="46" stroke="#d4af37" stroke-width="1.5"/>
-                <line class="lamp-path" x1="64" y1="48" x2="72" y2="48" stroke="#d4af37" stroke-width="1.8"/>
-                <circle class="lamp-path" cx="68" cy="46" r="1.5" fill="#d4af37" stroke="none"/>
-            </svg>
-        </div>
+    <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
+</div>
+        
+        <!-- 
+            ===== TO REPLACE WITH YOUR IMAGE, REPLACE THE ABOVE <div class="custom-icon">...</div> WITH:
+            
+            <div class="custom-icon">
+                <img src="your-logo-file-name.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+            
+            Make sure your image file is in the same folder as this HTML file.
+        -->
+        
         <div class="preloader-logo">GALAXY INTERIORS</div>
         <div class="preloader-sub">luxury redefined</div>
         <div class="loading-bar-container">
@@ -807,7 +854,7 @@
     </div>
 </div>
 
-<!-- rest of the website content (unchanged, same as previous fully functional version) -->
+<!-- rest of the website content -->
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
@@ -889,7 +936,7 @@
     const preloaderLogo = document.querySelector('.preloader-logo');
     const preloaderSub = document.querySelector('.preloader-sub');
 
-    gsap.to(customIcon, { opacity: 1, scale: 1, duration: 0.6, delay: 0.2, ease: "back.out(1.2)" });
+    gsap.to(customIcon, { opacity: 1, scale: 1, duration: 0.7, delay: 0.2, ease: "back.out(1.2)" });
     gsap.to(preloaderLogo, { opacity: 1, scale: 1, duration: 0.8, delay: 0.5, y: 0, ease: "power2.out" });
     gsap.to(preloaderSub, { opacity: 1, duration: 0.8, delay: 0.8, y: 0 });
 
@@ -954,7 +1001,7 @@
         gsap.utils.toArray('#portfolio, #about, #contact-review, #contact-stats').forEach(s=>{gsap.from(s,{opacity:0,y:60,duration:1,scrollTrigger:{trigger:s,start:'top 85%',once:true}});});
         document.querySelectorAll('.service-card-glass').forEach(c=>{gsap.fromTo(c,{y:50,opacity:0},{y:0,opacity:1,duration:1,scrollTrigger:{trigger:c.closest('.parallax-service'),start:'top 75%',once:true}});});
     }
-    // Mobile & cursor & theme same as original (kept functional)
+    // Mobile & cursor & theme
     const mobileMenuBtn=document.getElementById('mobileMenuBtn'), navLinksContainer=document.getElementById('navLinks'), menuIcon=mobileMenuBtn?.querySelector('i');
     function closeMobileMenu(){ if(navLinksContainer.classList.contains('active')){ navLinksContainer.classList.remove('active'); menuIcon.classList.remove('fa-times'); menuIcon.classList.add('fa-bars'); } }
     function openMobileMenu(){ navLinksContainer.classList.add('active'); menuIcon.classList.remove('fa-bars'); menuIcon.classList.add('fa-times'); }

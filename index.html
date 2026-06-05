@@ -15,7 +15,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Hide default cursor */
+            cursor: none;
         }
 
         html {
@@ -25,7 +25,7 @@
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #141414;
-            --bg-card: rgba(10, 10, 10, 0.75);
+            --bg-card: rgba(10, 10, 10, 0.85);
             --text-primary: #e8e3db;
             --text-secondary: #d1cbc0;
             --accent: #d4af37;
@@ -59,7 +59,7 @@
             transition: background-color 0.4s ease, color 0.3s ease;
         }
 
-        /* ========== CUSTOM CURSOR ========== */
+        /* Custom Cursor */
         .cursor {
             width: 32px;
             height: 32px;
@@ -87,27 +87,54 @@
             opacity: 0.6;
         }
 
-        /* Hover effect for interactive elements */
-        a:hover ~ .cursor,
-        button:hover ~ .cursor,
-        .project-card:hover ~ .cursor,
-        .service-card-glass:hover ~ .cursor,
-        .cta-btn:hover ~ .cursor,
-        .nav-links a:hover ~ .cursor,
-        .social-links a:hover ~ .cursor,
-        .carousel-dot:hover ~ .cursor {
-            width: 60px;
-            height: 60px;
-            background: rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(4px);
-        }
-
         @media (max-width: 768px) {
             .cursor, .cursor-follower { display: none; }
             * { cursor: auto; }
         }
 
-        /* ========== PRELOADER / WELCOME SCREEN ========== */
+        /* Floating Buttons */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .floating-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+        .floating-btn:hover {
+            transform: scale(1.1);
+        }
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        .call-btn {
+            background: #34B7F1;
+            color: white;
+        }
+        .floating-btn i {
+            font-size: 1.8rem;
+        }
+        @media (max-width: 768px) {
+            .floating-buttons { bottom: 20px; left: 20px; gap: 10px; }
+            .floating-btn { width: 45px; height: 45px; }
+            .floating-btn i { font-size: 1.4rem; }
+        }
+
+        /* Preloader */
         .preloader {
             position: fixed;
             top: 0;
@@ -122,19 +149,10 @@
             flex-direction: column;
             transition: opacity 1s ease, visibility 0.5s;
         }
-        body.light .preloader {
-            background: #f5f3ef;
-        }
-        .preloader.hide {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .preloader-content {
-            text-align: center;
-        }
+        body.light .preloader { background: #f5f3ef; }
+        .preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-content { text-align: center; }
         
-        /* Logo placeholder */
         .custom-icon {
             width: 200px;
             height: 200px;
@@ -142,13 +160,7 @@
             opacity: 0;
             transform: scale(0.8);
         }
-        
-        .custom-icon svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
-        }
-        
+        .custom-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
         .custom-icon svg .house-path,
         .custom-icon svg .armchair-path,
         .custom-icon svg .lamp-path,
@@ -158,12 +170,7 @@
             stroke-dashoffset: 200;
             animation: drawLine 1.2s ease forwards;
         }
-        
-        @keyframes drawLine {
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
         
         .preloader-logo {
             font-family: 'Cormorant Garamond', serif;
@@ -178,7 +185,6 @@
             opacity: 0;
             transform: scale(0.9);
         }
-        
         .preloader-sub {
             font-size: 0.85rem;
             letter-spacing: 5px;
@@ -187,7 +193,6 @@
             margin-top: 1rem;
             opacity: 0;
         }
-        
         .loading-bar-container {
             width: 260px;
             height: 2px;
@@ -196,40 +201,15 @@
             margin: 2rem auto 0;
             overflow: hidden;
         }
-        .loading-bar {
-            width: 0%;
-            height: 100%;
-            background: var(--accent);
-            transition: width 0.1s linear;
-        }
-        .loading-percent {
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin-top: 0.6rem;
-            font-family: monospace;
-            letter-spacing: 1px;
-        }
+        .loading-bar { width: 0%; height: 100%; background: var(--accent); transition: width 0.1s linear; }
+        .loading-percent { font-size: 0.8rem; color: var(--accent); margin-top: 0.6rem; font-family: monospace; }
 
         @media (max-width: 768px) {
-            .custom-icon {
-                width: 140px;
-                height: 140px;
-                margin-bottom: 1.5rem;
-            }
-            .preloader-logo { 
-                font-size: 2.2rem; 
-                letter-spacing: 3px; 
-            }
-            .preloader-sub { 
-                font-size: 0.65rem; 
-                letter-spacing: 3px; 
-            }
-            .loading-bar-container {
-                width: 200px;
-            }
+            .custom-icon { width: 140px; height: 140px; }
+            .preloader-logo { font-size: 2.2rem; letter-spacing: 3px; }
+            .loading-bar-container { width: 200px; }
         }
 
-        /* theme toggle */
         .theme-toggle {
             position: fixed;
             bottom: 30px;
@@ -249,20 +229,9 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
-        }
+        .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4); }
 
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 101;
-        }
+        .mobile-menu-btn { display: none; background: transparent; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; z-index: 101; }
 
         nav {
             position: fixed;
@@ -290,10 +259,7 @@
             color: transparent;
             cursor: pointer;
         }
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-        }
+        .nav-links { display: flex; gap: 3rem; }
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
@@ -338,13 +304,12 @@
             .nav-links a { font-size: 1.2rem; }
         }
 
-        /* ========== HERO SECTION WITH CAROUSEL ========== */
+        /* Hero Carousel */
         .hero {
             height: 100vh;
             position: relative;
             overflow: hidden;
         }
-        
         .carousel-container {
             position: absolute;
             top: 0;
@@ -353,7 +318,6 @@
             height: 100%;
             z-index: 0;
         }
-        
         .carousel-slide {
             position: absolute;
             top: 0;
@@ -366,11 +330,7 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        
-        .carousel-slide.active {
-            opacity: 1;
-        }
-        
+        .carousel-slide.active { opacity: 1; }
         .carousel-slide::before {
             content: "";
             position: absolute;
@@ -381,11 +341,6 @@
             background: rgba(0, 0, 0, 0.45);
             z-index: 1;
         }
-        
-        body.light .carousel-slide::before {
-            background: rgba(0, 0, 0, 0.25);
-        }
-        
         .hero-content {
             position: absolute;
             top: 50%;
@@ -396,7 +351,6 @@
             width: 100%;
             padding: 0 5%;
         }
-        
         .hero-content h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(3rem, 8vw, 6rem);
@@ -408,7 +362,6 @@
             color: #fff;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
-        
         .hero-line {
             width: 80px;
             height: 2px;
@@ -416,7 +369,6 @@
             margin: 2rem auto;
             opacity: 0;
         }
-        
         .hero-content p {
             font-size: clamp(0.8rem, 2vw, 1rem);
             letter-spacing: 4px;
@@ -425,9 +377,7 @@
             opacity: 0;
             transform: translateY(30px);
             color: #fff;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
         }
-        
         .cta-btn {
             margin-top: 3rem;
             display: inline-block;
@@ -444,14 +394,8 @@
             cursor: pointer;
             backdrop-filter: blur(5px);
         }
+        .cta-btn:hover { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 30px var(--accent-glow); }
         
-        .cta-btn:hover {
-            background: var(--accent);
-            color: #0a0a0a;
-            box-shadow: 0 0 30px var(--accent-glow);
-        }
-        
-        /* Carousel dots navigation */
         .carousel-dots {
             position: absolute;
             bottom: 30px;
@@ -461,7 +405,6 @@
             gap: 12px;
             z-index: 3;
         }
-        
         .carousel-dot {
             width: 10px;
             height: 10px;
@@ -470,48 +413,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .carousel-dot.active {
-            background: var(--accent);
-            width: 30px;
-            border-radius: 5px;
-        }
-        
-        .carousel-dot:hover {
-            background: var(--accent);
-        }
+        .carousel-dot.active { background: var(--accent); width: 30px; border-radius: 5px; }
+        .carousel-dot:hover { background: var(--accent); }
 
-        section {
-            padding: 8rem 5%;
-        }
-        .section-sub {
-            text-align: center;
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            margin-bottom: 1rem;
-        }
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 400;
-            text-align: center;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-        }
-        .section-desc {
-            text-align: center;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 4rem auto;
-            font-size: 0.95rem;
-        }
+        section { padding: 8rem 5%; }
+        .section-sub { text-align: center; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1rem; }
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; text-align: center; margin-bottom: 1rem; letter-spacing: 2px; }
 
-        /* 4 PARALLAX SERVICE SECTIONS */
-        .parallax-service {
+        /* Parallax Service Sections */
+        .service-parallax {
             position: relative;
-            min-height: 90vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -521,86 +433,75 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        .parallax-service::before {
+        .service-parallax::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.55);
+            background: rgba(0, 0, 0, 0.65);
             z-index: 1;
         }
-        body.light .parallax-service::before {
-            background: rgba(255, 255, 255, 0.55);
-        }
-        .service-card-glass {
+        .service-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 2rem;
             background: var(--bg-card);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
             border-radius: 28px;
-            padding: 2.8rem;
+            padding: 3rem;
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
-            transition: all 0.4s ease;
-            transform: translateY(30px);
+            transform: translateY(50px);
             opacity: 0;
+            transition: all 0.4s ease;
         }
-        .service-card-glass:hover {
-            transform: translateY(-8px) scale(1.01);
+        .service-content:hover {
+            transform: translateY(-5px);
             border-color: var(--accent);
             box-shadow: var(--shadow-gold);
         }
-        .service-card-glass h2 {
+        .service-number {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-        .service-quote {
             font-size: 1rem;
-            font-style: italic;
             color: var(--accent);
-            border-left: 3px solid var(--accent);
-            padding-left: 1.2rem;
-            margin-bottom: 1.2rem;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
         }
-        .service-desc {
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .service-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .service-content p {
             color: var(--text-secondary);
-            margin-bottom: 1.8rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
         }
-        .feature-list {
+        .service-features-list {
+            list-style: none;
             display: flex;
             flex-wrap: wrap;
             gap: 0.8rem;
-            list-style: none;
         }
-        .feature-list li {
+        .service-features-list li {
             background: rgba(212, 175, 55, 0.12);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 40px;
-            padding: 0.4rem 1.2rem;
+            padding: 0.5rem 1.2rem;
             font-size: 0.8rem;
             color: var(--text-primary);
-            transition: 0.2s;
         }
-        .feature-list li i {
+        .service-features-list li i {
             color: var(--accent);
             margin-right: 6px;
         }
-        .feature-list li:hover {
-            background: rgba(212, 175, 55, 0.25);
-            border-color: var(--accent);
-        }
 
-        /* portfolio grid */
+        /* Portfolio */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -614,16 +515,11 @@
             aspect-ratio: 4 / 5;
             background: var(--bg-card);
             border-radius: 4px;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.5s ease;
             cursor: pointer;
         }
         .project-card:hover { transform: scale(0.97); }
-        .project-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.2s ease;
-        }
+        .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
         .project-card:hover img { transform: scale(1.08); }
         .project-overlay {
             position: absolute;
@@ -636,73 +532,55 @@
             transition: transform 0.4s ease;
         }
         .project-card:hover .project-overlay { transform: translateY(0); }
-        .project-overlay h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.3rem;
-            color: #fff;
-        }
-        .project-overlay p {
-            font-size: 0.75rem;
-            color: var(--accent);
-            letter-spacing: 1px;
-        }
+        .project-overlay h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.3rem; color: #fff; }
+        .project-overlay p { font-size: 0.75rem; color: var(--accent); letter-spacing: 1px; }
 
-        .about-content {
-            max-width: 900px;
-            margin: 0 auto;
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-        .signature {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            margin-top: 2rem;
-            color: var(--accent);
-        }
+        .about-content { max-width: 900px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8; font-weight: 300; }
+        .signature { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-top: 2rem; color: var(--accent); }
 
-        /* customer query + review section */
-        .contact-review-section {
+        /* Customer Query Section */
+        .query-section {
             background: var(--bg-secondary);
             border-radius: 24px;
             padding: 3rem;
             max-width: 1400px;
             margin: 0 auto;
         }
-        .two-columns {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-        .query-form {
-            flex: 1;
+        .query-form-container {
             background: var(--bg-card);
             backdrop-filter: blur(4px);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             border: 1px solid var(--border);
         }
-        .reviews-panel {
-            flex: 1;
-            background: var(--bg-card);
-            backdrop-filter: blur(4px);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            overflow: hidden;
-        }
-        .query-form h3, .reviews-panel h3 {
+        .query-form-container h3 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--accent);
+            text-align: center;
         }
-        .form-group {
+        .query-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .query-full-width {
+            grid-column: span 2;
+        }
+        .query-form-group {
             margin-bottom: 1.2rem;
         }
-        .form-group input, .form-group textarea, .form-group select {
+        .query-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .query-form-group input, 
+        .query-form-group textarea, 
+        .query-form-group select {
             width: 100%;
             padding: 12px 16px;
             background: var(--bg-primary);
@@ -712,30 +590,94 @@
             font-family: 'Inter', sans-serif;
             transition: 0.2s;
         }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+        .query-form-group input:focus, 
+        .query-form-group textarea:focus, 
+        .query-form-group select:focus {
             outline: none;
             border-color: var(--accent);
+        }
+        .query-submit-btn {
+            background: var(--accent);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #0a0a0a;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .query-submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        @media (max-width: 768px) {
+            .query-grid { grid-template-columns: 1fr; }
+            .query-full-width { grid-column: span 1; }
+            .query-section { padding: 1.5rem; }
+            .query-form-container { padding: 1.5rem; }
+        }
+
+        /* Review Section - Two Columns */
+        .review-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .review-two-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .review-form-box {
+            flex: 1;
+            background: var(--bg-card);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+        .review-list-box {
+            flex: 1;
+            background: var(--bg-card);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .review-form-box h3, .review-list-box h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
         }
         .star-rating {
             display: flex;
             gap: 8px;
             flex-direction: row-reverse;
             justify-content: flex-end;
+            margin-bottom: 1rem;
         }
         .star-rating input {
             display: none;
         }
         .star-rating label {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: #555;
             cursor: pointer;
             transition: 0.2s;
         }
-        .star-rating label:hover, .star-rating label:hover ~ label,
+        .star-rating label:hover, 
+        .star-rating label:hover ~ label,
         .star-rating input:checked ~ label {
             color: var(--accent);
         }
-        .submit-btn {
+        .review-submit-btn {
             background: var(--accent);
             border: none;
             padding: 12px 28px;
@@ -745,14 +687,15 @@
             cursor: pointer;
             transition: 0.3s;
             font-size: 0.9rem;
+            width: 100%;
+            margin-top: 1rem;
         }
-        .submit-btn:hover {
+        .review-submit-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 5px 15px rgba(212,175,55,0.4);
         }
-
         .reviews-scroll-container {
-            height: 380px;
+            height: 450px;
             overflow-y: auto;
             padding-right: 8px;
         }
@@ -770,43 +713,45 @@
             flex-wrap: wrap;
             margin-bottom: 8px;
         }
-        .reviewer-name {
-            font-weight: 600;
-            color: var(--accent);
+        .reviewer-name { font-weight: 600; color: var(--accent); }
+        .review-stars-display { color: var(--accent); font-size: 0.8rem; }
+        .review-text { font-size: 0.85rem; color: var(--text-secondary); margin: 8px 0; }
+        .review-date { font-size: 0.7rem; color: #888; }
+        .auto-scroll-info { text-align: center; margin-top: 12px; font-size: 0.7rem; color: var(--accent); }
+
+        /* Market Specialization */
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
         }
-        .review-stars {
-            color: var(--accent);
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-        }
-        .review-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            margin: 8px 0;
-        }
-        .review-date {
-            font-size: 0.7rem;
-            color: #888;
-        }
-        .auto-scroll-info {
+        .market-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
             text-align: center;
-            margin-top: 12px;
-            font-size: 0.7rem;
-            color: var(--accent);
-            opacity: 0.8;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
+        .market-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .market-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; }
+        .market-card h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.8rem; }
+        .market-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
 
         @media (max-width: 768px) {
-            .contact-review-section { padding: 1.5rem; }
-            .two-columns { flex-direction: column; }
-            .reviews-panel { order: 2; }
-            .query-form { order: 1; }
+            .review-section { padding: 1.5rem; }
+            .review-two-columns { flex-direction: column; }
+            .review-list-box { order: 2; }
+            .review-form-box { order: 1; }
             .reviews-scroll-container { height: 300px; }
-            .service-card-glass { padding: 1.5rem; margin: 1rem; }
-            .carousel-dots { bottom: 15px; gap: 8px; }
-            .carousel-dot { width: 8px; height: 8px; }
-            .carousel-dot.active { width: 20px; }
+            .service-content { padding: 1.5rem; margin: 1rem; }
+            .service-content h2 { font-size: 1.6rem; }
+            .service-parallax { background-attachment: scroll; min-height: 70vh; }
         }
 
         .stats-grid {
@@ -817,18 +762,8 @@
             margin: 0 auto;
             text-align: center;
         }
-        .stat-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 500;
-            color: var(--accent);
-        }
-        .stat-label {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-top: 0.5rem;
-        }
+        .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 500; color: var(--accent); }
+        .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.5rem; }
 
         footer {
             padding: 4rem 5%;
@@ -845,61 +780,44 @@
             background-clip: text;
             color: transparent;
         }
-        .footer-address {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.5px;
-            line-height: 1.6;
-            max-width: 500px;
-            margin: 1rem auto;
-        }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        .social-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
+        .footer-address { font-size: 0.75rem; color: var(--text-secondary); max-width: 500px; margin: 1rem auto; }
+        .social-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
+        .social-links a { color: var(--text-primary); text-decoration: none; font-size: 0.85rem; letter-spacing: 2px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .social-links a:hover { color: var(--accent); transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-<!-- CUSTOM CURSOR ELEMENTS -->
 <div class="cursor"></div>
 <div class="cursor-follower"></div>
 
-<!-- PRELOADER / WELCOME SCREEN -->
+<!-- Floating Buttons -->
+<div class="floating-buttons">
+    <a href="https://wa.me/919556404467" target="_blank" class="floating-btn whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="tel:+919556404467" class="floating-btn call-btn">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+</div>
+
+<!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
         <div class="custom-icon">
     <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
 </div>
+
         <div class="preloader-logo">GALAXY INTERIORS</div>
         <div class="preloader-sub">luxury redefined</div>
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="loadingBar"></div>
-        </div>
+        <div class="loading-bar-container"><div class="loading-bar" id="loadingBar"></div></div>
         <div class="loading-percent" id="loadingPercent">0%</div>
     </div>
 </div>
 
-<!-- HERO SECTION WITH CAROUSEL -->
+<!-- Hero Carousel -->
 <div class="hero" id="home">
-    <div class="carousel-container" id="carouselContainer">
+    <div class="carousel-container">
         <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
         <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
         <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
@@ -915,7 +833,6 @@
     <div class="carousel-dots" id="carouselDots"></div>
 </div>
 
-<!-- rest of the website content -->
 <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
 
 <nav>
@@ -925,47 +842,176 @@
         <a href="#home" data-nav>HOME</a>
         <a href="#portfolio" data-nav>PORTFOLIO</a>
         <a href="#about" data-nav>STUDIO</a>
-        <a href="#services-start" data-nav>SERVICES</a>
-        <a href="#contact-review" data-nav>REVIEWS</a>
+        <a href="#services" data-nav>SERVICES</a>
+        <a href="#review-section" data-nav>REVIEWS</a>
         <a href="#contact-stats" data-nav>CONTACT</a>
     </div>
 </nav>
 
 <div id="mainContent" style="opacity:0; transition: opacity 1.2s ease;">
+    <!-- Portfolio -->
     <section id="portfolio">
         <div class="section-sub">Curated Spaces</div>
         <div class="section-title">Signature Works</div>
         <div class="portfolio-grid">
-            <div class="project-card"><img src="https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury living room"><div class="project-overlay"><h3>Rajmahal Villa</h3><p>Jaipur, Rajasthan</p></div></div>
-            <div class="project-card"><img src="https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury bedroom"><div class="project-overlay"><h3>Antilia Sky Estate</h3><p>Mumbai, Maharashtra</p></div></div>
-            <div class="project-card"><img src="https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Luxury living room"><div class="project-overlay"><h3>Lake Pichola Haveli</h3><p>Udaipur, Rajasthan</p></div></div>
+            <div class="project-card"><img src="https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Rajmahal Villa</h3><p>Jaipur, Rajasthan</p></div></div>
+            <div class="project-card"><img src="https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Antilia Sky Estate</h3><p>Mumbai, Maharashtra</p></div></div>
+            <div class="project-card"><img src="https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Lake Pichola Haveli</h3><p>Udaipur, Rajasthan</p></div></div>
         </div>
     </section>
 
+    <!-- About -->
     <section id="about">
         <div class="section-sub">Philosophy</div>
         <div class="section-title">The Galaxy Ethos</div>
         <div class="about-content"><p>We do not repeat. We do not replicate. Each Galaxy interior is a singular dialogue between architecture, light, and the soul of its dweller. Founded by fourth-generation design custodians, our atelier fuses old-world savoir-faire with futurist minimalism.</p><div class="signature">— Galaxy Interiors, est. 2024</div></div>
     </section>
 
-    <div id="services-start"></div>
-    <div class="parallax-service" style="background-image: url('https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-card-glass"><h2>Bespoke Spatial Curation</h2><div class="service-quote">"Tailoring the physical layout and flow of your home to match the rhythm of your lifestyle."</div><div class="service-desc">Every corridor, transition, and sightline is choreographed to enhance the way you live.</div><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Custom Furniture & Millwork Design</li><li><i class="fas fa-check-circle"></i> Fine Art & Antique Advisory</li><li><i class="fas fa-check-circle"></i> Tailored Furniture Layouts</li></ul></div></div>
-    <div class="parallax-service" style="background-image: url('https://images.pexels.com/photos/2559947/pexels-photo-2559947.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-card-glass"><h2>Sensory & Atmospheric Design</h2><div class="service-quote">"Crafting invisible luxury—light, acoustics, and tactile richness."</div><div class="service-desc">We engineer the warmth of golden-hour light and the silence of perfect acoustics.</div><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Architectural Lighting</li><li><i class="fas fa-check-circle"></i> Acoustic Softening</li><li><i class="fas fa-check-circle"></i> Textile Curation</li></ul></div></div>
-    <div class="parallax-service" style="background-image: url('https://images.pexels.com/photos/4386949/pexels-photo-4386949.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-card-glass"><h2>Architectural Evolution</h2><div class="service-quote">"Bridging historic bones with future-proof innovation."</div><div class="service-desc">We honor soul while integrating invisible intelligence.</div><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Smart-Home Integration</li><li><i class="fas fa-check-circle"></i> Heritage Restoration</li><li><i class="fas fa-check-circle"></i> Interior Remodeling</li></ul></div></div>
-    <div class="parallax-service" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-card-glass"><h2>Turnkey Lifestyle Integration</h2><div class="service-quote">"White-glove, stress-free experience from concept to move-in."</div><div class="service-desc">From blueprint to breakfast-in-bed, we manage every detail.</div><ul class="feature-list"><li><i class="fas fa-check-circle"></i> Full-Scale Project Management</li><li><i class="fas fa-check-circle"></i> Vetted Artisan Liaison</li><li><i class="fas fa-check-circle"></i> Concierge Styling</li></ul></div></div>
+    <!-- Services Parallax -->
+    <div id="services"></div>
+    
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">01</div><h2>Architecture & Spatial Engineering</h2><p>Advanced space utilization analysis and comprehensive structural solutions.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Advanced space utilization analysis</li><li><i class="fas fa-check-circle"></i> Structural blueprint design</li><li><i class="fas fa-check-circle"></i> Building elevations & working drawings</li><li><i class="fas fa-check-circle"></i> Comprehensive code compliance layouts</li></ul></div>
+    </div>
 
-    <section id="contact-review">
-        <div class="section-sub">Your Voice</div>
-        <div class="section-title">Share Your Experience</div>
-        <div class="contact-review-section"><div class="two-columns"><div class="query-form"><h3>✨ We'd love to hear from you</h3><form id="reviewForm"><div class="form-group"><input type="text" id="reviewerName" placeholder="Your name *" required></div><div class="form-group"><input type="email" id="reviewerEmail" placeholder="Email address"></div><div class="form-group"><textarea id="reviewMessage" rows="3" placeholder="Tell us about your experience..." required></textarea></div><div class="form-group"><label>Your rating:</label><div class="star-rating"><input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label><input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label><input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label><input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label><input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label></div></div><button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Submit review</button></form></div><div class="reviews-panel"><h3>🌟 Client Love</h3><div class="reviews-scroll-container" id="reviewsContainer"></div><div class="auto-scroll-info"><i class="fas fa-arrow-down"></i> auto‑scrolling · new reviews appear live</div></div></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">02</div><h2>Premium Interior Architecture</h2><p>Bespoke styling and luxury material curation for elite spaces.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Bespoke styling & luxury material curation</li><li><i class="fas fa-check-circle"></i> High-end minimalism & modern corporate setups</li><li><i class="fas fa-check-circle"></i> Elite commercial space design</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/161235/pexels-photo-161235.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">03</div><h2>Exterior Facade Engineering</h2><p>Design and execution of stunning building elevations.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Design & execution of building elevations</li><li><i class="fas fa-check-circle"></i> Complex external structural glazing</li><li><i class="fas fa-check-circle"></i> HPL/Composite paneling solutions</li><li><i class="fas fa-check-circle"></i> Architectural outdoor facade lighting</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/2762190/pexels-photo-2762190.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">04</div><h2>Hyper-Realistic 3D Visualization</h2><p>Photorealistic digital rendering and material simulation testing.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Photorealistic digital rendering</li><li><i class="fas fa-check-circle"></i> Material simulation testing</li><li><i class="fas fa-check-circle"></i> Multi-axis immersive walkthrough videos</li><li><i class="fas fa-check-circle"></i> Powered by 3ds Max, V-Ray & Corona</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/3849162/pexels-photo-3849162.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">05</div><h2>Civil & Infrastructure Construction</h2><p>Full-scale structural build-outs and MEP integration.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Full-scale structural build-outs</li><li><i class="fas fa-check-circle"></i> Core shell execution & concrete work</li><li><i class="fas fa-check-circle"></i> Civil remodeling & plumbing grids</li><li><i class="fas fa-check-circle"></i> High-performance MEP services</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">06</div><h2>Turnkey Project Execution</h2><p>Comprehensive project management and seamless handover.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Comprehensive on-site project management</li><li><i class="fas fa-check-circle"></i> Direct procurement of specialized materials</li><li><i class="fas fa-check-circle"></i> Custom industrial-grade furniture manufacturing</li><li><i class="fas fa-check-circle"></i> Ultimate clean-up & handover</li></ul></div>
+    </div>
+
+    <!-- Customer Query Section -->
+    <section>
+        <div class="section-sub">Get In Touch</div>
+        <div class="section-title">Request a Consultation</div>
+        <div class="query-section">
+            <div class="query-form-container">
+                <h3>✨ Tell us about your project</h3>
+                <form id="queryForm">
+                    <div class="query-grid">
+                        <div class="query-form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="queryName" placeholder="Your full name" required>
+                        </div>
+                        <div class="query-form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="queryEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="query-form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="queryPhone" placeholder="+91 XXXXX XXXXX" required>
+                        </div>
+                        <div class="query-form-group">
+                            <label>Select Service *</label>
+                            <select id="queryService" required>
+                                <option value="">-- Select a service --</option>
+                                <option value="Architecture & Spatial Engineering">01. Architecture & Spatial Engineering</option>
+                                <option value="Premium Interior Architecture">02. Premium Interior Architecture</option>
+                                <option value="Exterior Facade Engineering">03. Exterior Facade Engineering</option>
+                                <option value="Hyper-Realistic 3D Visualization">04. Hyper-Realistic 3D Visualization</option>
+                                <option value="Civil & Infrastructure Construction">05. Civil & Infrastructure Construction</option>
+                                <option value="Turnkey Project Execution">06. Turnkey Project Execution</option>
+                            </select>
+                        </div>
+                        <div class="query-form-group query-full-width">
+                            <label>Project Details / Message *</label>
+                            <textarea id="queryMessage" rows="4" placeholder="Tell us about your project requirements, budget, timeline, etc." required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="query-submit-btn"><i class="fas fa-paper-plane"></i> Send Inquiry</button>
+                </form>
+            </div>
+        </div>
     </section>
 
+    <!-- Market Specialization -->
+    <section style="padding-top: 0;">
+        <div class="section-sub">Industry Focus</div>
+        <div class="section-title">Market Specialization</div>
+        <div class="market-grid">
+            <div class="market-card"><div class="market-icon"><i class="fas fa-utensils"></i></div><h4>Hospitality</h4><p>Premium luxury hotels, boutique resorts, high-end specialty restaurants, cafes, and corporate executive lounges.</p></div>
+            <div class="market-card"><div class="market-icon"><i class="fas fa-briefcase"></i></div><h4>Commercial & Corporate</h4><p>Ultra-modern corporate headquarters, tech offices, high-end retail showrooms, experience centers, and commercial institutions.</p></div>
+            <div class="market-card"><div class="market-icon"><i class="fas fa-home"></i></div><h4>High-End Residential</h4><p>Custom-crafted luxury villas, premium penthouse suites, and private modern estates.</p></div>
+        </div>
+    </section>
+
+    <!-- REVIEW SECTION - WITH FORM AND TESTIMONIALS TOGETHER -->
+    <section id="review-section">
+        <div class="section-sub">Share Your Experience</div>
+        <div class="section-title">Client Reviews</div>
+        <div class="review-section">
+            <div class="review-two-columns">
+                <!-- Left Side: Review Form -->
+                <div class="review-form-box">
+                    <h3>📝 Write a Review</h3>
+                    <form id="reviewForm">
+                        <div class="query-form-group">
+                            <label>Your Name *</label>
+                            <input type="text" id="reviewerName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="query-form-group">
+                            <label>Your Email</label>
+                            <input type="email" id="reviewerEmail" placeholder="your@email.com">
+                        </div>
+                        <div class="query-form-group">
+                            <label>Your Rating *</label>
+                            <div class="star-rating" id="starRatingWidget">
+                                <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                                <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                                <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                                <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                                <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                            </div>
+                        </div>
+                        <div class="query-form-group">
+                            <label>Your Review *</label>
+                            <textarea id="reviewMessage" rows="4" placeholder="Share your experience with Galaxy Interiors..." required></textarea>
+                        </div>
+                        <button type="submit" class="review-submit-btn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+                    </form>
+                </div>
+
+                <!-- Right Side: Testimonials List -->
+                <div class="review-list-box">
+                    <h3>🌟 What Our Clients Say</h3>
+                    <div class="reviews-scroll-container" id="reviewsContainer">
+                        <!-- Reviews will be dynamically loaded here -->
+                    </div>
+                    <div class="auto-scroll-info">
+                        <i class="fas fa-arrow-down"></i> auto‑scrolling · new reviews appear live
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
     <section id="contact-stats">
         <div class="section-sub">By The Numbers</div>
         <div class="section-title">Global Footprint</div>
-        <div class="stats-grid"><div><div class="stat-number">150+</div><div class="stat-label">Projects Completed</div></div><div><div class="stat-number">18+</div><div class="stat-label">Cities Worldwide</div></div><div><div class="stat-number">45+</div><div class="stat-label">Design Team</div></div><div><div class="stat-number">12</div><div class="stat-label">Design Awards</div></div></div>
+        <div class="stats-grid">
+            <div><div class="stat-number">150+</div><div class="stat-label">Projects Completed</div></div>
+            <div><div class="stat-number">18+</div><div class="stat-label">Cities Worldwide</div></div>
+            <div><div class="stat-number">45+</div><div class="stat-label">Design Team</div></div>
+            <div><div class="stat-number">12</div><div class="stat-label">Design Awards</div></div>
+        </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-logo">GALAXY INTERIORS</div>
         <div class="footer-address"><i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 8px;"></i>2nd Floor, Plot no-1456/1459, near Image College, Kishan Nagar, Satya Vihar, Rasulgarh,<br>Bhubaneswar, Odisha 751010</div>
@@ -975,19 +1021,15 @@
 </div>
 
 <script>
-    // Preloader animation
     let progress = 0;
     const loadingBar = document.getElementById('loadingBar');
     const percentSpan = document.getElementById('loadingPercent');
     const preloader = document.getElementById('preloader');
     const mainContent = document.getElementById('mainContent');
-    const customIcon = document.querySelector('.custom-icon');
-    const preloaderLogo = document.querySelector('.preloader-logo');
-    const preloaderSub = document.querySelector('.preloader-sub');
-
-    gsap.to(customIcon, { opacity: 1, scale: 1, duration: 0.7, delay: 0.2, ease: "back.out(1.2)" });
-    gsap.to(preloaderLogo, { opacity: 1, scale: 1, duration: 0.8, delay: 0.5, y: 0, ease: "power2.out" });
-    gsap.to(preloaderSub, { opacity: 1, duration: 0.8, delay: 0.8, y: 0 });
+    
+    gsap.to('.custom-icon', { opacity: 1, scale: 1, duration: 0.7, delay: 0.2, ease: "back.out(1.2)" });
+    gsap.to('.preloader-logo', { opacity: 1, scale: 1, duration: 0.8, delay: 0.5, y: 0, ease: "power2.out" });
+    gsap.to('.preloader-sub', { opacity: 1, duration: 0.8, delay: 0.8, y: 0 });
 
     const interval = setInterval(() => {
         progress += Math.random() * 12;
@@ -998,11 +1040,7 @@
                 gsap.to(preloader, { opacity: 0, duration: 0.8, ease: "power2.inOut", onComplete: () => {
                     preloader.classList.add('hide');
                     mainContent.style.opacity = "1";
-                    initGSAP();
-                    renderReviews();
-                    setupEventListeners();
-                    startCarousel();
-                    initCustomCursor();
+                    initAll();
                 }});
             }, 300);
         }
@@ -1010,15 +1048,81 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // ========== CUSTOM CURSOR FUNCTION ==========
+    // Reviews Data
+    let reviews = [
+        { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury. Every detail was perfection.", date: "2025-02-10" },
+        { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional and delivered beyond expectations.", date: "2025-01-28" },
+        { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical. Highly recommended.", date: "2025-02-05" },
+        { name: "Vikram Reddy", stars: 3, text: "Good quality but timelines stretched a bit. End result is beautiful though.", date: "2025-01-15" },
+        { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly and executed flawlessly.", date: "2025-02-01" }
+    ];
+
+    function renderStarsDisplay(rating) { 
+        let str = ''; 
+        for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; 
+        return str; 
+    }
+
+    function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        [...reviews].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(rev => {
+            const div = document.createElement('div'); 
+            div.className = 'review-card';
+            div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.name)}</span><span class="review-stars-display">${renderStarsDisplay(rev.stars)}</span></div><div class="review-text">“${escapeHtml(rev.text)}”</div><div class="review-date">${rev.date}</div>`;
+            container.appendChild(div);
+        });
+        
+        // Auto-scroll functionality
+        let scrollInt;
+        if(container.scrollHeight > container.clientHeight) {
+            let step = 1;
+            scrollInt = setInterval(() => { 
+                if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                    container.scrollTop = 0;
+                } else {
+                    container.scrollTop += step;
+                }
+            }, 40);
+            container.addEventListener('mouseenter', () => clearInterval(scrollInt));
+            container.addEventListener('mouseleave', () => { 
+                clearInterval(scrollInt);
+                scrollInt = setInterval(() => { 
+                    if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                        container.scrollTop = 0;
+                    } else {
+                        container.scrollTop += step;
+                    }
+                }, 40);
+            });
+        }
+    }
+
+    function escapeHtml(str) { 
+        return str.replace(/[&<>]/g, function(m){ 
+            if(m==='&') return '&amp;'; 
+            if(m==='<') return '&lt;'; 
+            if(m==='>') return '&gt;'; 
+            return m;
+        }); 
+    }
+
+    function initAll() {
+        initCustomCursor();
+        initCarousel();
+        initGSAP();
+        initScrollAnimations();
+        initQueryForm();
+        renderReviews();
+        initReviewForm();
+    }
+
     function initCustomCursor() {
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
         if (!cursor || !cursorFollower) return;
-        
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-        
+        let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
@@ -1026,7 +1130,6 @@
             followerX = mouseX;
             followerY = mouseY;
         });
-        
         function animateFollower() {
             followerX += (mouseX - followerX) * 0.12;
             followerY += (mouseY - followerY) * 0.12;
@@ -1035,9 +1138,7 @@
         }
         animateFollower();
         
-        // Hover effect for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-card-glass, .carousel-dot');
-        interactiveElements.forEach(el => {
+        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursor.style.width = '70px';
                 cursor.style.height = '70px';
@@ -1055,110 +1156,138 @@
         });
     }
 
-    // ========== CAROUSEL FUNCTIONALITY ==========
-    let currentSlide = 0;
-    let slideInterval;
-    const slides = document.querySelectorAll('.carousel-slide');
-    const dotsContainer = document.getElementById('carouselDots');
-    
-    function createDots() {
-        if (!dotsContainer) return;
-        slides.forEach((_, index) => {
+    function initCarousel() {
+        let currentSlide = 0;
+        let slideInterval;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dotsContainer = document.getElementById('carouselDots');
+        if (!slides.length) return;
+        
+        slides.forEach((_, i) => {
             const dot = document.createElement('div');
             dot.classList.add('carousel-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                slides.forEach((s, idx) => s.classList.remove('active'));
+                slides[i].classList.add('active');
+                document.querySelectorAll('.carousel-dot').forEach((d, idx) => d.classList.remove('active'));
+                dot.classList.add('active');
+                currentSlide = i;
+            });
             dotsContainer.appendChild(dot);
         });
-    }
-    
-    function goToSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active');
-            if (i === index) slide.classList.add('active');
-        });
-        const dots = document.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, i) => {
-            dot.classList.remove('active');
-            if (i === index) dot.classList.add('active');
-        });
-        currentSlide = index;
-    }
-    
-    function nextSlide() {
-        let next = currentSlide + 1;
-        if (next >= slides.length) next = 0;
-        goToSlide(next);
-    }
-    
-    function startCarousel() {
-        if (slides.length > 0) {
-            slides[0].classList.add('active');
-            createDots();
-            slideInterval = setInterval(nextSlide, 5000);
+        
+        function nextSlide() {
+            let next = currentSlide + 1;
+            if (next >= slides.length) next = 0;
+            slides.forEach(s => s.classList.remove('active'));
+            slides[next].classList.add('active');
+            document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.remove('active'));
+            if (dotsContainer.children[next]) dotsContainer.children[next].classList.add('active');
+            currentSlide = next;
         }
+        slideInterval = setInterval(nextSlide, 5000);
     }
-    
-    // Hero text animation
-    gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
-    gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" });
-    gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" });
-    gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" });
 
-    let scrollInterval = null;
-    let reviews = [
-        { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury. Every detail was perfection.", date: "2025-02-10" },
-        { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional.", date: "2025-01-28" },
-        { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical.", date: "2025-02-05" },
-        { name: "Vikram Reddy", stars: 3, text: "Good quality but timelines stretched a bit. End result is beautiful.", date: "2025-01-15" },
-        { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly.", date: "2025-02-01" }
-    ];
-
-    function renderStars(rating) { let full='<i class="fas fa-star"></i>', empty='<i class="far fa-star"></i>', str=''; for(let i=1;i<=5;i++) str+= (i<=rating)?full:empty; return str; }
-    function renderReviews() {
-        const container = document.getElementById('reviewsContainer'); if(!container) return;
-        container.innerHTML = '';
-        [...reviews].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(rev => {
-            const div = document.createElement('div'); div.className='review-card';
-            div.innerHTML=`<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.name)}</span><span class="review-stars">${renderStars(rev.stars)}</span></div><div class="review-text">“${escapeHtml(rev.text)}”</div><div class="review-date">${rev.date}</div>`;
-            container.appendChild(div);
-        });
-        if(container.scrollHeight>container.clientHeight){
-            if(scrollInterval) clearInterval(scrollInterval);
-            let step=1;
-            scrollInterval=setInterval(()=>{ if(container.scrollTop+container.clientHeight>=container.scrollHeight-2) container.scrollTop=0; else container.scrollTop+=step; },40);
-            container.addEventListener('mouseenter',()=>{ if(scrollInterval) clearInterval(scrollInterval); });
-            container.addEventListener('mouseleave',()=>{ if(scrollInterval) clearInterval(scrollInterval); scrollInterval=setInterval(()=>{ if(container.scrollTop+container.clientHeight>=container.scrollHeight-2) container.scrollTop=0; else container.scrollTop+=step; },40); });
-        }
-    }
-    function escapeHtml(str){ return str.replace(/[&<>]/g,function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-    function setupEventListeners(){
-        document.getElementById('reviewForm')?.addEventListener('submit',(e)=>{
-            e.preventDefault(); const name=document.getElementById('reviewerName').value.trim(); const msg=document.getElementById('reviewMessage').value.trim(); const ratingInput=document.querySelector('input[name="rating"]:checked'); const rating=ratingInput?parseInt(ratingInput.value):0;
-            if(!name||!msg||rating===0){ alert("Please fill all fields and select rating."); return; }
-            reviews.unshift({name,stars:rating,text:msg,date:new Date().toISOString().slice(0,10)});
-            renderReviews(); document.getElementById('reviewForm').reset(); alert("Thank you! Review added.");
-        });
-    }
-    function initGSAP(){
+    function initGSAP() {
         gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('#portfolio, #about, #contact-review, #contact-stats').forEach(s=>{gsap.from(s,{opacity:0,y:60,duration:1,scrollTrigger:{trigger:s,start:'top 85%',once:true}});});
-        document.querySelectorAll('.service-card-glass').forEach(c=>{gsap.fromTo(c,{y:50,opacity:0},{y:0,opacity:1,duration:1,scrollTrigger:{trigger:c.closest('.parallax-service'),start:'top 75%',once:true}});});
+        gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
+        gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" });
+        gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" });
+        gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" });
     }
-    // Mobile & cursor & theme
-    const mobileMenuBtn=document.getElementById('mobileMenuBtn'), navLinksContainer=document.getElementById('navLinks'), menuIcon=mobileMenuBtn?.querySelector('i');
-    function closeMobileMenu(){ if(navLinksContainer.classList.contains('active')){ navLinksContainer.classList.remove('active'); menuIcon.classList.remove('fa-times'); menuIcon.classList.add('fa-bars'); } }
-    function openMobileMenu(){ navLinksContainer.classList.add('active'); menuIcon.classList.remove('fa-bars'); menuIcon.classList.add('fa-times'); }
-    if(mobileMenuBtn) mobileMenuBtn.addEventListener('click',(e)=>{ e.stopPropagation(); if(navLinksContainer.classList.contains('active')) closeMobileMenu(); else openMobileMenu(); });
-    function smoothScroll(t){ const target=document.querySelector(t); if(target){ const navH=document.querySelector('nav').offsetHeight; const pos=target.getBoundingClientRect().top+window.pageYOffset-navH; window.scrollTo({top:pos,behavior:'smooth'}); } closeMobileMenu(); }
-    document.querySelectorAll('[data-nav]').forEach(l=>{l.addEventListener('click',(e)=>{e.preventDefault(); const hr=l.getAttribute('href'); if(hr==='#services-start') smoothScroll('#services-start'); else if(hr==='#contact-review') smoothScroll('#contact-review'); else if(hr==='#contact-stats') smoothScroll('#contact-stats'); else smoothScroll(hr);});});
-    document.getElementById('heroCta')?.addEventListener('click',(e)=>{e.preventDefault(); smoothScroll('#portfolio');});
-    document.getElementById('logo')?.addEventListener('click',(e)=>{e.preventDefault(); smoothScroll('#home');});
-    document.addEventListener('click',(e)=>{ if(navLinksContainer.classList.contains('active')&&!navLinksContainer.contains(e.target)&&!mobileMenuBtn.contains(e.target)) closeMobileMenu(); });
-    window.addEventListener('resize',()=>{if(window.innerWidth>768) closeMobileMenu();});
+
+    function initScrollAnimations() {
+        gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section').forEach(s => {
+            gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } });
+        });
+        gsap.utils.toArray('.service-content').forEach(c => {
+            gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } });
+        });
+        gsap.utils.toArray('.service-parallax').forEach(p => {
+            gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
+        });
+    }
+
+    function initQueryForm() {
+        const queryForm = document.getElementById('queryForm');
+        if(queryForm) {
+            queryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('queryName').value.trim();
+                const email = document.getElementById('queryEmail').value.trim();
+                const phone = document.getElementById('queryPhone').value.trim();
+                const service = document.getElementById('queryService').value;
+                const message = document.getElementById('queryMessage').value.trim();
+                
+                if(!name || !email || !phone || !service || !message) {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+                
+                const whatsappMsg = `Hello Galaxy Interiors!%0A%0A*New Project Inquiry*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(message)}`;
+                window.open(`https://wa.me/919556404467?text=${whatsappMsg}`, '_blank');
+                alert("Thank you! You will be redirected to WhatsApp to complete your inquiry.");
+                queryForm.reset();
+            });
+        }
+    }
+
+    function initReviewForm() {
+        const reviewForm = document.getElementById('reviewForm');
+        if(reviewForm) {
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('reviewerName').value.trim();
+                const email = document.getElementById('reviewerEmail').value.trim();
+                const msg = document.getElementById('reviewMessage').value.trim();
+                const ratingInput = document.querySelector('input[name="rating"]:checked');
+                const rating = ratingInput ? parseInt(ratingInput.value) : 0;
+                
+                if(!name || !msg || rating === 0) { 
+                    alert("Please enter your name, review, and select a star rating."); 
+                    return; 
+                }
+                
+                const newReview = { 
+                    name: name, 
+                    stars: rating, 
+                    text: msg, 
+                    date: new Date().toISOString().slice(0,10) 
+                };
+                reviews.unshift(newReview);
+                renderReviews();
+                reviewForm.reset();
+                alert("Thank you! Your review has been added to our wall of love ✨");
+            });
+        }
+    }
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinksContainer = document.getElementById('navLinks');
+    const menuIcon = mobileMenuBtn?.querySelector('i');
+    function closeMobileMenu() { if(navLinksContainer.classList.contains('active')) { navLinksContainer.classList.remove('active'); menuIcon.classList.remove('fa-times'); menuIcon.classList.add('fa-bars'); } }
+    function openMobileMenu() { navLinksContainer.classList.add('active'); menuIcon.classList.remove('fa-bars'); menuIcon.classList.add('fa-times'); }
+    if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', (e) => { e.stopPropagation(); if(navLinksContainer.classList.contains('active')) closeMobileMenu(); else openMobileMenu(); });
+    function smoothScroll(t) { const target = document.querySelector(t); if(target) { const navH = document.querySelector('nav').offsetHeight; const pos = target.getBoundingClientRect().top + window.pageYOffset - navH; window.scrollTo({ top: pos, behavior: 'smooth' }); } closeMobileMenu(); }
+    document.querySelectorAll('[data-nav]').forEach(l => { l.addEventListener('click', (e) => { e.preventDefault(); smoothScroll(l.getAttribute('href')); }); });
+    document.getElementById('heroCta')?.addEventListener('click', (e) => { e.preventDefault(); smoothScroll('#portfolio'); });
+    document.getElementById('logo')?.addEventListener('click', (e) => { e.preventDefault(); smoothScroll('#home'); });
+    document.addEventListener('click', (e) => { if(navLinksContainer.classList.contains('active') && !navLinksContainer.contains(e.target) && !mobileMenuBtn.contains(e.target)) closeMobileMenu(); });
+    window.addEventListener('resize', () => { if(window.innerWidth > 768) closeMobileMenu(); });
     
-    const tt=document.getElementById('themeToggle'), tIcon=tt?.querySelector('i'); if(tt){ tt.addEventListener('click',()=>{document.body.classList.toggle('light'); if(document.body.classList.contains('light')){ tIcon.classList.remove('fa-moon'); tIcon.classList.add('fa-sun'); localStorage.setItem('theme','light'); } else { tIcon.classList.remove('fa-sun'); tIcon.classList.add('fa-moon'); localStorage.setItem('theme','dark'); } }); if(localStorage.getItem('theme')==='light'){ document.body.classList.add('light'); tIcon.classList.remove('fa-moon'); tIcon.classList.add('fa-sun'); } }
-    window.addEventListener('scroll',()=>{const nav=document.querySelector('nav'); if(window.scrollY>50) nav.style.padding='1rem 5%'; else nav.style.padding='1.5rem 5%';});
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle?.querySelector('i');
+    if(themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            if(document.body.classList.contains('light')) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); localStorage.setItem('theme', 'light'); }
+            else { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); localStorage.setItem('theme', 'dark'); }
+        });
+        if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light'); themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); }
+    }
+    window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%'; else nav.style.padding = '1.5rem 5%'; });
 </script>
 </body>
 </html>

@@ -404,7 +404,7 @@
         .section-sub { text-align: center; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1rem; }
         .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; text-align: center; margin-bottom: 1rem; letter-spacing: 2px; }
 
-        /* Gallery Popup - WITH SCROLLING */
+        /* Gallery Popup */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -434,17 +434,9 @@
             position: relative;
             animation: popupFadeIn 0.3s ease;
         }
-        .gallery-popup::-webkit-scrollbar {
-            width: 6px;
-        }
-        .gallery-popup::-webkit-scrollbar-track {
-            background: var(--border);
-            border-radius: 10px;
-        }
-        .gallery-popup::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
+        .gallery-popup::-webkit-scrollbar { width: 6px; }
+        .gallery-popup::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
+        .gallery-popup::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
         @keyframes popupFadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
@@ -496,9 +488,7 @@
             transition: transform 0.2s ease;
             cursor: pointer;
         }
-        .gallery-main img:hover {
-            transform: scale(1.02);
-        }
+        .gallery-main img:hover { transform: scale(1.02); }
         .gallery-info-section {
             padding: 18px 25px;
             background: #1a1a1a;
@@ -524,17 +514,9 @@
             background: #141414;
             min-height: 110px;
         }
-        .gallery-thumbnails-section::-webkit-scrollbar {
-            height: 5px;
-        }
-        .gallery-thumbnails-section::-webkit-scrollbar-track {
-            background: var(--border);
-            border-radius: 10px;
-        }
-        .gallery-thumbnails-section::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
+        .gallery-thumbnails-section::-webkit-scrollbar { height: 5px; }
+        .gallery-thumbnails-section::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
+        .gallery-thumbnails-section::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
         .gallery-thumb {
             flex-shrink: 0;
             width: 110px;
@@ -574,9 +556,7 @@
             align-items: center;
             cursor: pointer;
         }
-        .zoom-modal.active {
-            display: flex;
-        }
+        .zoom-modal.active { display: flex; }
         .zoom-modal img {
             max-width: 90%;
             max-height: 90%;
@@ -619,7 +599,7 @@
             .gallery-thumbnails-section { padding: 12px 15px; min-height: 95px; }
         }
 
-        /* Corporate Info Sections */
+        /* Corporate Sections */
         .corporate-section {
             background: var(--bg-card);
             border-radius: 24px;
@@ -795,12 +775,8 @@
         .project-overlay h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.3rem; color: #fff; }
         .project-overlay p { font-size: 0.75rem; color: var(--accent); letter-spacing: 1px; }
 
-        @media (max-width: 1024px) {
-            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 640px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1024px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .portfolio-grid { grid-template-columns: 1fr; } }
 
         /* Customer Query Section */
         .query-section {
@@ -882,7 +858,7 @@
             .corporate-section h3 { font-size: 1.4rem; }
         }
 
-        /* Review Section */
+        /* Review Section - Two Columns */
         .review-section {
             background: var(--bg-secondary);
             border-radius: 24px;
@@ -1099,6 +1075,7 @@
     </div>
 </div>
 
+
 <!-- Hero Carousel -->
 <div class="hero" id="home">
     <div class="carousel-container">
@@ -1180,7 +1157,7 @@
         <img id="zoomImg" src="" alt="Zoomed Image">
     </div>
 
-    <!-- About Sections (condensed for space) -->
+    <!-- About Sections -->
     <section id="about">
         <div class="section-sub">Who We Are</div>
         <div class="section-title">Executive Summary & About Us</div>
@@ -1229,14 +1206,32 @@
         </div>
     </section>
 
-    <!-- Services Parallax (shortened for brevity) -->
+    <!-- Services Parallax -->
     <div id="services"></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">01</div><h2>Architecture & Spatial Engineering</h2><p>Advanced space utilization analysis and comprehensive structural solutions.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Advanced space utilization analysis</li><li><i class="fas fa-check-circle"></i> Structural blueprint design</li><li><i class="fas fa-check-circle"></i> Building elevations & working drawings</li><li><i class="fas fa-check-circle"></i> Comprehensive code compliance layouts</li></ul></div></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">02</div><h2>Premium Interior Architecture</h2><p>Bespoke styling and luxury material curation for elite spaces.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Bespoke styling & luxury material curation</li><li><i class="fas fa-check-circle"></i> High-end minimalism & modern corporate setups</li><li><i class="fas fa-check-circle"></i> Elite commercial space design</li></ul></div></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/161235/pexels-photo-161235.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">03</div><h2>Exterior Facade Engineering</h2><p>Design and execution of stunning building elevations.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Design & execution of building elevations</li><li><i class="fas fa-check-circle"></i> Complex external structural glazing</li><li><i class="fas fa-check-circle"></i> HPL/Composite paneling solutions</li><li><i class="fas fa-check-circle"></i> Architectural outdoor facade lighting</li></ul></div></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/2762190/pexels-photo-2762190.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">04</div><h2>Hyper-Realistic 3D Visualization</h2><p>Photorealistic digital rendering and material simulation testing.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Photorealistic digital rendering</li><li><i class="fas fa-check-circle"></i> Material simulation testing</li><li><i class="fas fa-check-circle"></i> Multi-axis immersive walkthrough videos</li><li><i class="fas fa-check-circle"></i> Powered by 3ds Max, V-Ray & Corona</li></ul></div></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/3849162/pexels-photo-3849162.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">05</div><h2>Civil & Infrastructure Construction</h2><p>Full-scale structural build-outs and MEP integration.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Full-scale structural build-outs</li><li><i class="fas fa-check-circle"></i> Core shell execution & concrete work</li><li><i class="fas fa-check-circle"></i> Civil remodeling & plumbing grids</li><li><i class="fas fa-check-circle"></i> High-performance MEP services</li></ul></div></div>
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">06</div><h2>Turnkey Project Execution</h2><p>Comprehensive project management and seamless handover.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Comprehensive on-site project management</li><li><i class="fas fa-check-circle"></i> Direct procurement of specialized materials</li><li><i class="fas fa-check-circle"></i> Custom industrial-grade furniture manufacturing</li><li><i class="fas fa-check-circle"></i> Ultimate clean-up & handover</li></ul></div></div>
+    
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">01</div><h2>Architecture & Spatial Engineering</h2><p>Advanced space utilization analysis and comprehensive structural solutions.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Advanced space utilization analysis</li><li><i class="fas fa-check-circle"></i> Structural blueprint design</li><li><i class="fas fa-check-circle"></i> Building elevations & working drawings</li><li><i class="fas fa-check-circle"></i> Comprehensive code compliance layouts</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">02</div><h2>Premium Interior Architecture</h2><p>Bespoke styling and luxury material curation for elite spaces.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Bespoke styling & luxury material curation</li><li><i class="fas fa-check-circle"></i> High-end minimalism & modern corporate setups</li><li><i class="fas fa-check-circle"></i> Elite commercial space design</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/161235/pexels-photo-161235.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">03</div><h2>Exterior Facade Engineering</h2><p>Design and execution of stunning building elevations.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Design & execution of building elevations</li><li><i class="fas fa-check-circle"></i> Complex external structural glazing</li><li><i class="fas fa-check-circle"></i> HPL/Composite paneling solutions</li><li><i class="fas fa-check-circle"></i> Architectural outdoor facade lighting</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/2762190/pexels-photo-2762190.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">04</div><h2>Hyper-Realistic 3D Visualization</h2><p>Photorealistic digital rendering and material simulation testing.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Photorealistic digital rendering</li><li><i class="fas fa-check-circle"></i> Material simulation testing</li><li><i class="fas fa-check-circle"></i> Multi-axis immersive walkthrough videos</li><li><i class="fas fa-check-circle"></i> Powered by 3ds Max, V-Ray & Corona</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/3849162/pexels-photo-3849162.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">05</div><h2>Civil & Infrastructure Construction</h2><p>Full-scale structural build-outs and MEP integration.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Full-scale structural build-outs</li><li><i class="fas fa-check-circle"></i> Core shell execution & concrete work</li><li><i class="fas fa-check-circle"></i> Civil remodeling & plumbing grids</li><li><i class="fas fa-check-circle"></i> High-performance MEP services</li></ul></div>
+    </div>
+
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="service-content"><div class="service-number">06</div><h2>Turnkey Project Execution</h2><p>Comprehensive project management and seamless handover.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Comprehensive on-site project management</li><li><i class="fas fa-check-circle"></i> Direct procurement of specialized materials</li><li><i class="fas fa-check-circle"></i> Custom industrial-grade furniture manufacturing</li><li><i class="fas fa-check-circle"></i> Ultimate clean-up & handover</li></ul></div>
+    </div>
 
     <!-- Customer Query Section -->
     <section>
@@ -1280,7 +1275,7 @@
         </div>
     </section>
 
-    <!-- REVIEW SECTION -->
+    <!-- REVIEW SECTION with Permanent Storage & 4+ Stars Only -->
     <section id="review-section">
         <div class="section-sub">Share Your Experience</div>
         <div class="section-title">Client Reviews</div>
@@ -1307,7 +1302,7 @@
                 <div class="review-list-box">
                     <h3>🌟 What Our Clients Say</h3>
                     <div class="reviews-scroll-container" id="reviewsContainer"></div>
-                    <div class="auto-scroll-info"><i class="fas fa-arrow-down"></i> auto‑scrolling · new reviews appear live</div>
+                    <div class="auto-scroll-info"><i class="fas fa-arrow-down"></i> auto‑scrolling · 4★ & 5★ only</div>
                 </div>
             </div>
         </div>
@@ -1362,6 +1357,105 @@
         if (loadingBar) loadingBar.style.width = progress + "%";
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
+
+    // ========== REVIEWS STORAGE SYSTEM ==========
+    // Load reviews from localStorage or initialize default 4-5 star reviews
+    let reviews = [];
+
+    function loadReviews() {
+        const stored = localStorage.getItem('galaxyReviews');
+        if (stored) {
+            reviews = JSON.parse(stored);
+        } else {
+            // Default reviews (only 4 and 5 stars)
+            reviews = [
+                { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury. Every detail was perfection.", date: "2025-02-10" },
+                { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional and delivered beyond expectations.", date: "2025-01-28" },
+                { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical. Highly recommended.", date: "2025-02-05" },
+                { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly and executed flawlessly.", date: "2025-02-01" }
+            ];
+            saveReviews();
+        }
+    }
+
+    function saveReviews() {
+        localStorage.setItem('galaxyReviews', JSON.stringify(reviews));
+    }
+
+    function renderStarsDisplay(rating) { 
+        let str = ''; 
+        for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; 
+        return str; 
+    }
+
+    function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        
+        // Filter ONLY 4 and 5 star reviews (3 stars and below are excluded)
+        const filteredReviews = reviews.filter(review => review.stars >= 4);
+        
+        // Sort by date (newest first)
+        const sorted = [...filteredReviews].sort((a,b)=>new Date(b.date)-new Date(a.date));
+        
+        if (sorted.length === 0) {
+            container.innerHTML = '<div class="review-card" style="text-align:center;">No 4★ or 5★ reviews yet. Be the first to leave one!</div>';
+            return;
+        }
+        
+        sorted.forEach(rev => {
+            const div = document.createElement('div'); 
+            div.className = 'review-card';
+            div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.name)}</span><span class="review-stars-display">${renderStarsDisplay(rev.stars)}</span></div><div class="review-text">“${escapeHtml(rev.text)}”</div><div class="review-date">${rev.date}</div>`;
+            container.appendChild(div);
+        });
+        
+        // Auto-scroll functionality
+        let scrollInt;
+        if(container.scrollHeight > container.clientHeight) {
+            let step = 1;
+            scrollInt = setInterval(() => { 
+                if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                    container.scrollTop = 0;
+                } else {
+                    container.scrollTop += step;
+                }
+            }, 40);
+            container.addEventListener('mouseenter', () => clearInterval(scrollInt));
+            container.addEventListener('mouseleave', () => { 
+                clearInterval(scrollInt);
+                scrollInt = setInterval(() => { 
+                    if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                        container.scrollTop = 0;
+                    } else {
+                        container.scrollTop += step;
+                    }
+                }, 40);
+            });
+        }
+    }
+
+    function escapeHtml(str) { 
+        return str.replace(/[&<>]/g, function(m){ 
+            if(m==='&') return '&amp;'; 
+            if(m==='<') return '&lt;'; 
+            if(m==='>') return '&gt;'; 
+            return m;
+        }); 
+    }
+
+    function addReview(name, stars, text) {
+        const newReview = { 
+            name: name, 
+            stars: stars, 
+            text: text, 
+            date: new Date().toISOString().slice(0,10) 
+        };
+        reviews.push(newReview);
+        saveReviews();
+        renderReviews();
+    }
 
     // Gallery Data
     const galleryData = {
@@ -1496,34 +1590,17 @@
         });
     });
 
-    let reviews = [
-        { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury.", date: "2025-02-10" },
-        { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional.", date: "2025-01-28" },
-        { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical.", date: "2025-02-05" },
-        { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly.", date: "2025-02-01" }
-    ];
-
-    function renderStarsDisplay(rating) { let str = ''; for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; return str; }
-    function renderReviews() {
-        const container = document.getElementById('reviewsContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        [...reviews].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(rev => {
-            const div = document.createElement('div'); div.className = 'review-card';
-            div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.name)}</span><span class="review-stars-display">${renderStarsDisplay(rev.stars)}</span></div><div class="review-text">“${escapeHtml(rev.text)}”</div><div class="review-date">${rev.date}</div>`;
-            container.appendChild(div);
-        });
-        let scrollInt;
-        if(container.scrollHeight > container.clientHeight) {
-            let step = 1;
-            scrollInt = setInterval(() => { if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) container.scrollTop = 0; else container.scrollTop += step; }, 40);
-            container.addEventListener('mouseenter', () => clearInterval(scrollInt));
-            container.addEventListener('mouseleave', () => { clearInterval(scrollInt); scrollInt = setInterval(() => { if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) container.scrollTop = 0; else container.scrollTop += step; }, 40); });
-        }
+    function initAll() { 
+        loadReviews(); 
+        renderReviews(); 
+        initCustomCursor(); 
+        initCarousel(); 
+        initGSAP(); 
+        initScrollAnimations(); 
+        initQueryForm(); 
+        initReviewForm(); 
     }
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-
-    function initAll() { initCustomCursor(); initCarousel(); initGSAP(); initScrollAnimations(); initQueryForm(); initReviewForm(); renderReviews(); }
+    
     function initCustomCursor() {
         const cursor = document.querySelector('.cursor'); const cf = document.querySelector('.cursor-follower');
         if (!cursor || !cf) return;
@@ -1535,6 +1612,7 @@
             el.addEventListener('mouseleave', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; cursor.style.background = '#d4af37'; cursor.style.backdropFilter = 'none'; cf.style.opacity = '0.6'; });
         });
     }
+    
     function initCarousel() {
         let currentSlide = 0, slideInterval;
         const slides = document.querySelectorAll('.carousel-slide'), dotsContainer = document.getElementById('carouselDots');
@@ -1543,10 +1621,34 @@
         function nextSlide() { let next = currentSlide + 1; if (next >= slides.length) next = 0; slides.forEach(s => s.classList.remove('active')); slides[next].classList.add('active'); document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.remove('active')); if (dotsContainer.children[next]) dotsContainer.children[next].classList.add('active'); currentSlide = next; }
         slideInterval = setInterval(nextSlide, 5000);
     }
+    
     function initGSAP() { gsap.registerPlugin(ScrollTrigger); gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" }); gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" }); gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" }); gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" }); }
+    
     function initScrollAnimations() { gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => { gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } }); }); gsap.utils.toArray('.service-content').forEach(c => { gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } }); }); gsap.utils.toArray('.service-parallax').forEach(p => { gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); }); }
+    
     function initQueryForm() { document.getElementById('queryForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('queryName').value.trim(); const email = document.getElementById('queryEmail').value.trim(); const phone = document.getElementById('queryPhone').value.trim(); const service = document.getElementById('queryService').value; const message = document.getElementById('queryMessage').value.trim(); if(!name || !email || !phone || !service || !message) { alert("Please fill in all fields."); return; } const msg = `Hello Galaxy Interiors!%0A%0A*New Project Inquiry*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(message)}`; window.open(`https://wa.me/919556404467?text=${msg}`, '_blank'); alert("Thank you! You will be redirected to WhatsApp."); document.getElementById('queryForm').reset(); }); }
-    function initReviewForm() { document.getElementById('reviewForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('reviewerName').value.trim(); const msg = document.getElementById('reviewMessage').value.trim(); const ratingInput = document.querySelector('#reviewForm input[name="rating"]:checked'); const rating = ratingInput ? parseInt(ratingInput.value) : 0; if(!name || !msg || rating === 0) { alert("Please fill all fields."); return; } reviews.unshift({ name, stars: rating, text: msg, date: new Date().toISOString().slice(0,10) }); renderReviews(); document.getElementById('reviewForm').reset(); alert("Thank you! Your review has been added."); }); }
+    
+    function initReviewForm() { 
+        document.getElementById('reviewForm')?.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            const name = document.getElementById('reviewerName').value.trim(); 
+            const msg = document.getElementById('reviewMessage').value.trim(); 
+            const ratingInput = document.querySelector('#reviewForm input[name="rating"]:checked'); 
+            const rating = ratingInput ? parseInt(ratingInput.value) : 0; 
+            if(!name || !msg || rating === 0) { 
+                alert("Please enter your name, review, and select a star rating."); 
+                return; 
+            }
+            if(rating < 4) {
+                alert("Thank you for your feedback! However, we only display reviews with 4 or 5 stars on our website. Your privacy is respected.");
+                document.getElementById('reviewForm').reset();
+                return;
+            }
+            addReview(name, rating, msg); 
+            document.getElementById('reviewForm').reset(); 
+            alert("Thank you! Your 4★ or 5★ review has been added to our wall of love ✨"); 
+        }); 
+    }
 
     const mobileMenuBtn = document.getElementById('mobileMenuBtn'), navLinksContainer = document.getElementById('navLinks'), menuIcon = mobileMenuBtn?.querySelector('i');
     function closeMobileMenu() { if(navLinksContainer.classList.contains('active')) { navLinksContainer.classList.remove('active'); menuIcon.classList.remove('fa-times'); menuIcon.classList.add('fa-bars'); } }

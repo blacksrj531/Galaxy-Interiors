@@ -114,20 +114,10 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             text-decoration: none;
         }
-        .floating-btn:hover {
-            transform: scale(1.1);
-        }
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-        }
-        .call-btn {
-            background: #34B7F1;
-            color: white;
-        }
-        .floating-btn i {
-            font-size: 1.8rem;
-        }
+        .floating-btn:hover { transform: scale(1.1); }
+        .whatsapp-btn { background: #25D366; color: white; }
+        .call-btn { background: #34B7F1; color: white; }
+        .floating-btn i { font-size: 1.8rem; }
         @media (max-width: 768px) {
             .floating-buttons { bottom: 20px; left: 20px; gap: 10px; }
             .floating-btn { width: 45px; height: 45px; }
@@ -160,17 +150,11 @@
             opacity: 0;
             transform: scale(0.8);
         }
-        .custom-icon svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4)); }
-        .custom-icon svg .house-path,
-        .custom-icon svg .armchair-path,
-        .custom-icon svg .lamp-path,
-        .custom-icon svg .light-path,
-        .custom-icon svg .door-path {
-            stroke-dasharray: 200;
-            stroke-dashoffset: 200;
-            animation: drawLine 1.2s ease forwards;
+        .custom-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
         
         .preloader-logo {
             font-family: 'Cormorant Garamond', serif;
@@ -420,6 +404,67 @@
         .section-sub { text-align: center; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1rem; }
         .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; text-align: center; margin-bottom: 1rem; letter-spacing: 2px; }
 
+        /* New Corporate Info Sections */
+        .corporate-section {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .corporate-section:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-gold);
+        }
+        .corporate-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        .corporate-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+        .corporate-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        .corporate-list li {
+            padding: 0.6rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .corporate-list li:last-child { border-bottom: none; }
+        .corporate-list li i {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-top: 0.2rem;
+        }
+        .stats-highlight {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .stat-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
         /* Parallax Service Sections */
         .service-parallax {
             position: relative;
@@ -565,12 +610,8 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
         }
-        .query-full-width {
-            grid-column: span 2;
-        }
-        .query-form-group {
-            margin-bottom: 1.2rem;
-        }
+        .query-full-width { grid-column: span 2; }
+        .query-form-group { margin-bottom: 1.2rem; }
         .query-form-group label {
             display: block;
             margin-bottom: 0.5rem;
@@ -618,6 +659,8 @@
             .query-full-width { grid-column: span 1; }
             .query-section { padding: 1.5rem; }
             .query-form-container { padding: 1.5rem; }
+            .corporate-section { padding: 1.5rem; }
+            .corporate-section h3 { font-size: 1.4rem; }
         }
 
         /* Review Section - Two Columns */
@@ -663,9 +706,7 @@
             justify-content: flex-end;
             margin-bottom: 1rem;
         }
-        .star-rating input {
-            display: none;
-        }
+        .star-rating input { display: none; }
         .star-rating label {
             font-size: 1.8rem;
             color: #555;
@@ -674,9 +715,7 @@
         }
         .star-rating label:hover, 
         .star-rating label:hover ~ label,
-        .star-rating input:checked ~ label {
-            color: var(--accent);
-        }
+        .star-rating input:checked ~ label { color: var(--accent); }
         .review-submit-btn {
             background: var(--accent);
             border: none;
@@ -765,6 +804,7 @@
         .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 500; color: var(--accent); }
         .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.5rem; }
 
+        /* Footer Styles */
         footer {
             padding: 4rem 5%;
             border-top: 1px solid var(--border);
@@ -774,16 +814,42 @@
         .footer-logo {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--text-primary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        .footer-address { font-size: 0.75rem; color: var(--text-secondary); max-width: 500px; margin: 1rem auto; }
-        .social-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; flex-wrap: wrap; }
+        .footer-address { 
+            font-size: 0.75rem; 
+            color: var(--text-secondary); 
+            max-width: 600px; 
+            margin: 0.8rem auto; 
+            line-height: 1.6;
+        }
+        .footer-details {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1rem auto;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .footer-details span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-details i { color: var(--accent); }
+        .social-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0 1rem; flex-wrap: wrap; }
         .social-links a { color: var(--text-primary); text-decoration: none; font-size: 0.85rem; letter-spacing: 2px; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
         .social-links a:hover { color: var(--accent); transform: translateY(-2px); }
+        .copyright { font-size: 0.7rem; opacity: 0.6; margin-top: 1.5rem; }
+        
+        @media (max-width: 768px) {
+            .footer-details { gap: 1rem; flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -805,9 +871,8 @@
 <div class="preloader" id="preloader">
     <div class="preloader-content">
         <div class="custom-icon">
-    <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
-</div>
-
+            <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:100%; height:100%; object-fit:contain;">
+        </div>
         <div class="preloader-logo">GALAXY INTERIORS</div>
         <div class="preloader-sub">luxury redefined</div>
         <div class="loading-bar-container"><div class="loading-bar" id="loadingBar"></div></div>
@@ -818,16 +883,20 @@
 <!-- Hero Carousel -->
 <div class="hero" id="home">
     <div class="carousel-container">
-        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-        <div class="carousel-slide" style="background-image: url('https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+        <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Blanco/outdoor/3.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+
+        <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Blanco/Indoor/2.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+
+        <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Living_Room/1.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+
+        <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Local_Dhaba/design/9.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
+
+        <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Big_Cup_Cafe/2.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
     </div>
     <div class="hero-content">
         <h1>Where Light<br>Meets Legacy</h1>
         <div class="hero-line"></div>
-        <p>Architechture • Interior Design • Turnkey Construction</p>
+        <p>Architecture • Interior Design • Turnkey Construction</p>
         <a href="#portfolio" class="cta-btn" id="heroCta">DISCOVER THE ATELIER</a>
     </div>
     <div class="carousel-dots" id="carouselDots"></div>
@@ -860,11 +929,56 @@
         </div>
     </section>
 
-    <!-- About -->
+    <!-- NEW: EXECUTIVE SUMMARY & ABOUT US -->
     <section id="about">
-        <div class="section-sub">Philosophy</div>
-        <div class="section-title">The Galaxy Ethos</div>
-        <div class="about-content"><p>7 Years of Corporate Excellence. We do not repeat. We do not replicate. Each Galaxy interior is a singular dialogue between architecture, light, and the soul of its dweller. Founded by fourth-generation design custodians, our atelier fuses old-world savoir-faire with futurist minimalism.</p><div class="signature">— Galaxy Interiors, est. 2019</div></div>
+        <div class="section-sub">Who We Are</div>
+        <div class="section-title">Executive Summary & About Us</div>
+        <div class="corporate-section">
+            <p>Established 7 years ago with a core commitment to delivering design and structural excellence, Galaxy Interiors has successfully evolved into a premier, multi-disciplinary architecture, high-end interior design, and turnkey civil construction firm. Over nearly a decade of rigorous field operations, we have collaborated with leading corporate, hospitality, and residential clients to transform complex design visions into immaculate physical realities.</p>
+            <p>Our operational model is built around a comprehensive "Concept-to-Key" single-window framework. By seamlessly integrating architectural engineering, hyper-realistic 3D visualization, premium bespoke interior execution, full-scale civil infrastructure works, and modern facade/exterior design under one single engineering management, we entirely eliminate multi-vendor friction and guarantee unmatched precision.</p>
+            <div class="stats-highlight">
+                <span class="stat-badge"><i class="fas fa-calendar-alt"></i> 7+ Years Excellence</span>
+                <span class="stat-badge"><i class="fas fa-building"></i> 150+ Projects</span>
+                <span class="stat-badge"><i class="fas fa-trophy"></i> Concept-to-Key Framework</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: ARCHITECTURAL SYNCHRONIZATION -->
+    <section style="padding-top: 0;">
+        <div class="section-sub">Precision Engineering</div>
+        <div class="section-title">Architectural Synchronization: From Render to Reality</div>
+        <div class="corporate-section">
+            <p>At Galaxy Interiors, what is conceptualized and approved digitally is exactly what is delivered physically. We eliminate the industry-wide mismatch between architectural concepts and final ground construction.</p>
+            <ul class="corporate-list">
+                <li><i class="fas fa-check-circle"></i> <strong>100% Precise Physical Translation:</strong> Utilizing premium, industry-standard 3D visualization systems including 3ds Max, V-Ray, and Corona, our design studio develops highly accurate, photo-realistic virtual environments.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Material & Engineering Adherence:</strong> Our fundamental corporate strength lies in our strict material and engineering adherence on-site. Every texture specification, lighting lux levels, spatial proportion, and material configuration is cross-verified on-site, delivering a finished product that matches the approved 3D renders with absolute, pixel-perfect fidelity.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- NEW: QUALITY ASSURANCE & PREMIUM CRAFTSMANSHIP -->
+    <section style="padding-top: 0;">
+        <div class="section-sub">Uncompromising Standards</div>
+        <div class="section-title">Quality Assurance & Premium Craftsmanship</div>
+        <div class="corporate-section">
+            <p>Quality control is embedded into every operational workflow at Galaxy Interiors. We implement rigid material checks and design audits at every construction phase to maintain premium corporate standards.</p>
+            <p>Our dedicated project management teams enforce extreme precision regarding micro-details, seamless material transitions, structural joins, and superior surface finishing. This strict discipline ensures that all completed environments not only project premium luxury but also possess the high durability and material strength required to sustain high-traffic commercial and hospitality operations.</p>
+        </div>
+    </section>
+
+    <!-- NEW: PROJECT SCHEDULING & PUNCTUAL DELIVERY -->
+    <section style="padding-top: 0;">
+        <div class="section-sub">Timely Execution</div>
+        <div class="section-title">Project Scheduling & Punctual Delivery</div>
+        <div class="corporate-section">
+            <p>We recognize that operational timelines are mission-critical, particularly within the hospitality, corporate, and retail sectors where delayed handovers directly impact revenue cycles. At Galaxy Interiors, time management is treated as an absolute contractual obligation.</p>
+            <ul class="corporate-list">
+                <li><i class="fas fa-chart-line"></i> <strong>Critical Path Method (CPM) Scheduling:</strong> We utilize detailed, phase-wise timelines mapping out structural civil phases and micro-finishing stages.</li>
+                <li><i class="fas fa-truck-fast"></i> <strong>Optimized Resource Sourcing:</strong> Proactive material procurement and centralized labor deployment eliminate supply chain bottlenecks.</li>
+                <li><i class="fas fa-clock"></i> <strong>Flawless Track Record:</strong> Our established 7-year field history is backed by consistent, on-time project completions and handovers carried out under the highest benchmarks of commercial craftsmanship.</li>
+            </ul>
+        </div>
     </section>
 
     <!-- Services Parallax -->
@@ -949,13 +1063,12 @@
         </div>
     </section>
 
-    <!-- REVIEW SECTION - WITH FORM AND TESTIMONIALS TOGETHER -->
+    <!-- REVIEW SECTION -->
     <section id="review-section">
         <div class="section-sub">Share Your Experience</div>
         <div class="section-title">Client Reviews</div>
         <div class="review-section">
             <div class="review-two-columns">
-                <!-- Left Side: Review Form -->
                 <div class="review-form-box">
                     <h3>📝 Write a Review</h3>
                     <form id="reviewForm">
@@ -969,7 +1082,7 @@
                         </div>
                         <div class="query-form-group">
                             <label>Your Rating *</label>
-                            <div class="star-rating" id="starRatingWidget">
+                            <div class="star-rating">
                                 <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
                                 <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
                                 <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
@@ -984,16 +1097,10 @@
                         <button type="submit" class="review-submit-btn"><i class="fas fa-paper-plane"></i> Submit Review</button>
                     </form>
                 </div>
-
-                <!-- Right Side: Testimonials List -->
                 <div class="review-list-box">
                     <h3>🌟 What Our Clients Say</h3>
-                    <div class="reviews-scroll-container" id="reviewsContainer">
-                        <!-- Reviews will be dynamically loaded here -->
-                    </div>
-                    <div class="auto-scroll-info">
-                        <i class="fas fa-arrow-down"></i> auto‑scrolling · new reviews appear live
-                    </div>
+                    <div class="reviews-scroll-container" id="reviewsContainer"></div>
+                    <div class="auto-scroll-info"><i class="fas fa-arrow-down"></i> auto‑scrolling · new reviews appear live</div>
                 </div>
             </div>
         </div>
@@ -1014,9 +1121,20 @@
     <!-- Footer -->
     <footer>
         <div class="footer-logo">GALAXY INTERIORS</div>
-        <div class="footer-address"><i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 8px;"></i>2nd Floor, Plot no-1456/1459, near Image College, Kishan Nagar, Satya Vihar, Rasulgarh,<br>Bhubaneswar, Odisha 751010</div>
-        <div class="social-links"><a href="https://www.instagram.com/galaxyinteriors786" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> FACEBOOK</a><a href="mailto:interiorsgalaxybbsr@gmail.com"><i class="fas fa-envelope"></i> MAIL</a></div>
-        <p style="font-size: 0.7rem; opacity: 0.6;">© 2026 Galaxy Interiors — All rights reserved.</p>
+        <div class="footer-address">
+            <i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 8px;"></i>
+            PLOT NO-1456/14596, SATYA VIHAR, PANDARA, RASULGARH, BHUBANESWAR, Khordha, Odisha, 751010
+        </div>
+        <div class="footer-details">
+            <span><i class="fas fa-id-card"></i> PAN: ABLFM9970H</span>
+            <span><i class="fas fa-building"></i> GST No: 21ABLFM9970H1ZW</span>
+        </div>
+        <div class="social-links">
+            <a href="https://www.instagram.com/galaxyinteriors786" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> FACEBOOK</a>
+            <a href="mailto:interiorsgalaxybbsr@gmail.com"><i class="fas fa-envelope"></i> MAIL</a>
+        </div>
+        <p class="copyright">© 2026 Galaxy Interiors — All rights reserved.</p>
     </footer>
 </div>
 
@@ -1048,12 +1166,10 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // Reviews Data
     let reviews = [
         { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury. Every detail was perfection.", date: "2025-02-10" },
         { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional and delivered beyond expectations.", date: "2025-01-28" },
         { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical. Highly recommended.", date: "2025-02-05" },
-        { name: "Vikram Reddy", stars: 3, text: "Good quality but timelines stretched a bit. End result is beautiful though.", date: "2025-01-15" },
         { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly and executed flawlessly.", date: "2025-02-01" }
     ];
 
@@ -1074,7 +1190,6 @@
             container.appendChild(div);
         });
         
-        // Auto-scroll functionality
         let scrollInt;
         if(container.scrollHeight > container.clientHeight) {
             let step = 1;
@@ -1114,8 +1229,8 @@
         initGSAP();
         initScrollAnimations();
         initQueryForm();
-        renderReviews();
         initReviewForm();
+        renderReviews();
     }
 
     function initCustomCursor() {
@@ -1198,7 +1313,7 @@
     }
 
     function initScrollAnimations() {
-        gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section').forEach(s => {
+        gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => {
             gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } });
         });
         gsap.utils.toArray('.service-content').forEach(c => {
@@ -1239,9 +1354,8 @@
             reviewForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = document.getElementById('reviewerName').value.trim();
-                const email = document.getElementById('reviewerEmail').value.trim();
                 const msg = document.getElementById('reviewMessage').value.trim();
-                const ratingInput = document.querySelector('input[name="rating"]:checked');
+                const ratingInput = document.querySelector('#reviewForm input[name="rating"]:checked');
                 const rating = ratingInput ? parseInt(ratingInput.value) : 0;
                 
                 if(!name || !msg || rating === 0) { 

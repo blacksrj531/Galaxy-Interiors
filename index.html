@@ -404,6 +404,137 @@
         .section-sub { text-align: center; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1rem; }
         .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; text-align: center; margin-bottom: 1rem; letter-spacing: 2px; }
 
+        /* Before & After Slider Styles */
+        .before-after-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 2rem auto;
+        }
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            border: 2px solid var(--accent);
+        }
+        .comparison-img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+        .comparison-img-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .comparison-img-container img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+        .comparison-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 3px solid var(--accent);
+        }
+        .comparison-overlay img {
+            width: 200%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: translateX(-50%);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+        .slider-handle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            cursor: ew-resize;
+        }
+        .slider-handle::after {
+            content: '⇄';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0a0a0a;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 12;
+            pointer-events: none;
+        }
+        .comparison-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border-radius: 0 0 20px 20px;
+            margin-top: -5px;
+            gap: 1rem;
+        }
+        .label-after, .label-before {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--accent);
+            text-align: center;
+            display: inline-block;
+        }
+        .label-after {
+            border-left: 3px solid var(--accent);
+        }
+        .label-before {
+            border-right: 3px solid var(--accent);
+        }
+        .project-title {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .slider-handle::before { width: 35px; height: 35px; }
+            .slider-handle::after { font-size: 1rem; }
+            .comparison-labels { padding: 0.8rem 1rem; flex-direction: column; gap: 0.8rem; }
+            .label-after, .label-before { font-size: 0.7rem; padding: 0.4rem 1rem; width: 100%; text-align: center; }
+            .project-title { font-size: 1.2rem; }
+            .before-after-section { padding: 1.5rem; margin: 1rem auto; }
+        }
+
         /* Gallery Popup */
         .gallery-overlay {
             display: none;
@@ -856,7 +987,7 @@
             .corporate-section h3 { font-size: 1.4rem; }
         }
 
-        /* Review Section - Two Columns */
+        /* Review Section */
         .review-section {
             background: var(--bg-secondary);
             border-radius: 24px;
@@ -1063,7 +1194,7 @@
 <!-- Preloader -->
 <div class="preloader" id="preloader">
     <div class="preloader-content">
-        <div class="custom-icon">
+         <div class="custom-icon">
             <img src="logoicon.png" alt="Galaxy Interiors Logo" style="width:120%; height:120%; object-fit:contain;">
         </div>
         <div class="preloader-logo">GALAXY INTERIORS</div>
@@ -1099,6 +1230,7 @@
     <div class="nav-links" id="navLinks">
         <a href="#home" data-nav>HOME</a>
         <a href="#portfolio" data-nav>PORTFOLIO</a>
+        <a href="#before-after" data-nav>BEFORE & AFTER</a>
         <a href="#about" data-nav>STUDIO</a>
         <a href="#services" data-nav>SERVICES</a>
         <a href="#review-section" data-nav>REVIEWS</a>
@@ -1131,6 +1263,48 @@
         </div>
     </section>
 
+    <!-- BEFORE & AFTER SLIDERS SECTION - ONLY 2 SLIDERS WITH FIXED TEXT -->
+    <section id="before-after">
+        <div class="section-sub">Transformation Showcase</div>
+        <div class="section-title">Before & After</div>
+        
+        <!-- Slider 1: Rajmahal Villa -->
+        <div class="before-after-section">
+            <div class="project-title">🏠 Rajmahal Villa - Jaipur, Rajasthan</div>
+            <div class="comparison-slider" id="comparisonSlider1">
+                <div class="comparison-img-container">
+                    <img class="comparison-img" id="afterImage1" src="https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="After Design - Completed Project">
+                    <div class="comparison-overlay" id="comparisonOverlay1">
+                        <img id="beforeImage1" src="https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Elevation - Design Plan">
+                    </div>
+                    <div class="slider-handle" id="sliderHandle1"></div>
+                </div>
+            </div>
+            <div class="comparison-labels">
+                <span class="label-after">✨ AFTER VIEW (Real Design)</span>
+                <span class="label-before">📐 ELEVATION / DESIGN PLAN</span>
+            </div>
+        </div>
+
+        <!-- Slider 2: Serenity Cove Villa -->
+        <div class="before-after-section">
+            <div class="project-title">🌿 Serenity Cove Villa - Goa, India</div>
+            <div class="comparison-slider" id="comparisonSlider2">
+                <div class="comparison-img-container">
+                    <img class="comparison-img" id="afterImage2" src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="After Design - Completed Villa">
+                    <div class="comparison-overlay" id="comparisonOverlay2">
+                        <img id="beforeImage2" src="https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Elevation - Villa Design Plan">
+                    </div>
+                    <div class="slider-handle" id="sliderHandle2"></div>
+                </div>
+            </div>
+            <div class="comparison-labels">
+                <span class="label-after">✨ AFTER VIEW (Real Design)</span>
+                <span class="label-before">📐 ELEVATION / DESIGN PLAN</span>
+            </div>
+        </div>
+    </section>
+
     <!-- Gallery Popup -->
     <div id="galleryOverlay" class="gallery-overlay">
         <div class="gallery-popup">
@@ -1154,7 +1328,7 @@
         <img id="zoomImg" src="" alt="Zoomed Image">
     </div>
 
-    <!-- About Sections -->
+    <!-- About Sections (condensed for length) -->
     <section id="about">
         <div class="section-sub">Who We Are</div>
         <div class="section-title">Executive Summary & About Us</div>
@@ -1272,7 +1446,7 @@
         </div>
     </section>
 
-    <!-- REVIEW SECTION with SheetDB Integration (Global Storage) -->
+    <!-- REVIEW SECTION -->
     <section id="review-section">
         <div class="section-sub">Share Your Experience</div>
         <div class="section-title">Client Reviews</div>
@@ -1330,7 +1504,64 @@
 </div>
 
 <script>
-    // SheetDB API Configuration
+    // Initialize both Before & After Sliders
+    function initBeforeAfterSlider(sliderId, overlayId, handleId) {
+        const slider = document.getElementById(sliderId);
+        const overlay = document.getElementById(overlayId);
+        const handle = document.getElementById(handleId);
+        
+        if (!slider || !overlay || !handle) return;
+        
+        let isDragging = false;
+        
+        function updateSlider(x) {
+            const rect = slider.getBoundingClientRect();
+            let xPos = x - rect.left;
+            if (xPos < 0) xPos = 0;
+            if (xPos > rect.width) xPos = rect.width;
+            const percentage = (xPos / rect.width) * 100;
+            overlay.style.width = percentage + '%';
+            handle.style.left = percentage + '%';
+        }
+        
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        }
+        
+        function onTouchMove(e) {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            updateSlider(touch.clientX);
+        }
+        
+        function onMouseUp() {
+            isDragging = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onTouchMove);
+            document.removeEventListener('touchend', onMouseUp);
+        }
+        
+        handle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            e.preventDefault();
+        });
+        
+        handle.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            document.addEventListener('touchmove', onTouchMove);
+            document.addEventListener('touchend', onMouseUp);
+            e.preventDefault();
+        });
+        
+        slider.addEventListener('click', (e) => {
+            updateSlider(e.clientX);
+        });
+    }
+
     const SHEETDB_API_URL = 'https://sheetdb.io/api/v1/1kthld9chns7t';
     
     let progress = 0;
@@ -1360,119 +1591,6 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // ========== SHEETDB REVIEWS FUNCTIONS (Global Storage) ==========
-    
-    // Fetch all reviews from SheetDB
-    async function fetchReviews() {
-        try {
-            const response = await fetch(SHEETDB_API_URL);
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Error fetching reviews:', error);
-            return [];
-        }
-    }
-    
-    // Submit a new review to SheetDB
-    async function submitReview(name, stars, review, email = '') {
-        try {
-            const today = new Date().toISOString().slice(0,10);
-            const newReview = {
-                Name: name,
-                Stars: stars.toString(),
-                Review: review,
-                Date: today
-            };
-            
-            const response = await fetch(SHEETDB_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newReview)
-            });
-            
-            return response.ok;
-        } catch (error) {
-            console.error('Error submitting review:', error);
-            return false;
-        }
-    }
-    
-    function renderStarsDisplay(rating) { 
-        let str = ''; 
-        for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; 
-        return str; 
-    }
-    
-    async function renderReviews() {
-        const container = document.getElementById('reviewsContainer');
-        if(!container) return;
-        
-        container.innerHTML = '<div style="text-align:center; padding:20px;">Loading reviews...</div>';
-        
-        const reviews = await fetchReviews();
-        
-        // Filter ONLY 4 and 5 star reviews
-        const filteredReviews = reviews.filter(review => {
-            const stars = parseInt(review.Stars);
-            return stars >= 4;
-        });
-        
-        // Sort by date (newest first)
-        const sorted = [...filteredReviews].sort((a,b)=> new Date(b.Date) - new Date(a.Date));
-        
-        if (sorted.length === 0) {
-            container.innerHTML = '<div class="review-card" style="text-align:center;">No 4★ or 5★ reviews yet. Be the first to leave one!</div>';
-            return;
-        }
-        
-        container.innerHTML = '';
-        
-        sorted.forEach(rev => {
-            const div = document.createElement('div'); 
-            div.className = 'review-card';
-            const starsNum = parseInt(rev.Stars);
-            div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.Name)}</span><span class="review-stars-display">${renderStarsDisplay(starsNum)}</span></div><div class="review-text">“${escapeHtml(rev.Review)}”</div><div class="review-date">${rev.Date}</div>`;
-            container.appendChild(div);
-        });
-        
-        // Auto-scroll functionality
-        let scrollInt;
-        if(container.scrollHeight > container.clientHeight) {
-            let step = 1;
-            scrollInt = setInterval(() => { 
-                if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
-                    container.scrollTop = 0;
-                } else {
-                    container.scrollTop += step;
-                }
-            }, 40);
-            container.addEventListener('mouseenter', () => clearInterval(scrollInt));
-            container.addEventListener('mouseleave', () => { 
-                clearInterval(scrollInt);
-                scrollInt = setInterval(() => { 
-                    if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
-                        container.scrollTop = 0;
-                    } else {
-                        container.scrollTop += step;
-                    }
-                }, 40);
-            });
-        }
-    }
-    
-    function escapeHtml(str) { 
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m){ 
-            if(m==='&') return '&amp;'; 
-            if(m==='<') return '&lt;'; 
-            if(m==='>') return '&gt;'; 
-            return m;
-        }); 
-    }
-    
     // Gallery Data
     const galleryData = {
         rajmahal: {
@@ -1606,7 +1724,101 @@
         });
     });
 
+    // SheetDB Reviews Functions
+    async function fetchReviews() {
+        try {
+            const response = await fetch(SHEETDB_API_URL);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+            return [];
+        }
+    }
+    
+    async function submitReview(name, stars, review, email = '') {
+        try {
+            const today = new Date().toISOString().slice(0,10);
+            const newReview = {
+                Name: name,
+                Stars: stars.toString(),
+                Review: review,
+                Date: today
+            };
+            const response = await fetch(SHEETDB_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newReview)
+            });
+            return response.ok;
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            return false;
+        }
+    }
+    
+    function renderStarsDisplay(rating) { 
+        let str = ''; 
+        for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; 
+        return str; 
+    }
+    
+    async function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        if(!container) return;
+        container.innerHTML = '<div style="text-align:center; padding:20px;">Loading reviews...</div>';
+        const reviews = await fetchReviews();
+        const filteredReviews = reviews.filter(review => parseInt(review.Stars) >= 4);
+        const sorted = [...filteredReviews].sort((a,b)=> new Date(b.Date) - new Date(a.Date));
+        if (sorted.length === 0) {
+            container.innerHTML = '<div class="review-card" style="text-align:center;">No 4★ or 5★ reviews yet. Be the first to leave one!</div>';
+            return;
+        }
+        container.innerHTML = '';
+        sorted.forEach(rev => {
+            const div = document.createElement('div'); 
+            div.className = 'review-card';
+            const starsNum = parseInt(rev.Stars);
+            div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.Name)}</span><span class="review-stars-display">${renderStarsDisplay(starsNum)}</span></div><div class="review-text">“${escapeHtml(rev.Review)}”</div><div class="review-date">${rev.Date}</div>`;
+            container.appendChild(div);
+        });
+        let scrollInt;
+        if(container.scrollHeight > container.clientHeight) {
+            let step = 1;
+            scrollInt = setInterval(() => { 
+                if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                    container.scrollTop = 0;
+                } else {
+                    container.scrollTop += step;
+                }
+            }, 40);
+            container.addEventListener('mouseenter', () => clearInterval(scrollInt));
+            container.addEventListener('mouseleave', () => { 
+                clearInterval(scrollInt);
+                scrollInt = setInterval(() => { 
+                    if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
+                        container.scrollTop = 0;
+                    } else {
+                        container.scrollTop += step;
+                    }
+                }, 40);
+            });
+        }
+    }
+    
+    function escapeHtml(str) { 
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m){ 
+            if(m==='&') return '&amp;'; 
+            if(m==='<') return '&lt;'; 
+            if(m==='>') return '&gt;'; 
+            return m;
+        }); 
+    }
+
     function initAll() { 
+        initBeforeAfterSlider('comparisonSlider1', 'comparisonOverlay1', 'sliderHandle1');
+        initBeforeAfterSlider('comparisonSlider2', 'comparisonOverlay2', 'sliderHandle2');
         renderReviews(); 
         initCustomCursor(); 
         initCarousel(); 
@@ -1622,7 +1834,7 @@
         let mx=0,my=0,fx=0,fy=0;
         document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx}px, ${my}px)`; fx = mx; fy = my; });
         function anim() { fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12; cf.style.transform = `translate(${fx}px, ${fy}px)`; requestAnimationFrame(anim); } anim();
-        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn, .gallery-thumb, .gallery-close-btn, .zoom-close, .gallery-main img').forEach(el => {
+        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn, .gallery-thumb, .gallery-close-btn, .zoom-close, .gallery-main img, .slider-handle').forEach(el => {
             el.addEventListener('mouseenter', () => { cursor.style.width = '70px'; cursor.style.height = '70px'; cursor.style.background = 'rgba(212, 175, 55, 0.3)'; cursor.style.backdropFilter = 'blur(4px)'; cf.style.opacity = '0'; });
             el.addEventListener('mouseleave', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; cursor.style.background = '#d4af37'; cursor.style.backdropFilter = 'none'; cf.style.opacity = '0.6'; });
         });
@@ -1639,7 +1851,7 @@
     
     function initGSAP() { gsap.registerPlugin(ScrollTrigger); gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" }); gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" }); gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" }); gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" }); }
     
-    function initScrollAnimations() { gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => { gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } }); }); gsap.utils.toArray('.service-content').forEach(c => { gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } }); }); gsap.utils.toArray('.service-parallax').forEach(p => { gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); }); }
+    function initScrollAnimations() { gsap.utils.toArray('#portfolio, #before-after, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => { gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } }); }); gsap.utils.toArray('.service-content').forEach(c => { gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } }); }); gsap.utils.toArray('.service-parallax').forEach(p => { gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); }); }
     
     function initQueryForm() { document.getElementById('queryForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('queryName').value.trim(); const email = document.getElementById('queryEmail').value.trim(); const phone = document.getElementById('queryPhone').value.trim(); const service = document.getElementById('queryService').value; const message = document.getElementById('queryMessage').value.trim(); if(!name || !email || !phone || !service || !message) { alert("Please fill in all fields."); return; } const msg = `Hello Galaxy Interiors!%0A%0A*New Project Inquiry*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(message)}`; window.open(`https://wa.me/919556404467?text=${msg}`, '_blank'); alert("Thank you! You will be redirected to WhatsApp."); document.getElementById('queryForm').reset(); }); }
     
@@ -1659,13 +1871,11 @@
                 document.getElementById('reviewForm').reset();
                 return;
             }
-            
-            // Submit to SheetDB
             const success = await submitReview(name, rating, msg);
             if (success) {
                 alert("Thank you! Your 4★ or 5★ review has been added to our wall of love ✨");
                 document.getElementById('reviewForm').reset();
-                await renderReviews(); // Refresh the reviews display
+                await renderReviews();
             } else {
                 alert("There was an error submitting your review. Please try again.");
             }

@@ -150,10 +150,10 @@
             opacity: 0;
             transform: scale(0.8);
         }
-        .custom-icon img {
+        .custom-icon svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
         }
         
         .preloader-logo {
@@ -404,7 +404,222 @@
         .section-sub { text-align: center; color: var(--accent); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1rem; }
         .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; text-align: center; margin-bottom: 1rem; letter-spacing: 2px; }
 
-        /* New Corporate Info Sections */
+        /* Gallery Popup - WITH SCROLLING */
+        .gallery-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+        }
+        .gallery-overlay.active {
+            display: flex;
+        }
+        .gallery-popup {
+            width: 90%;
+            max-width: 1300px;
+            max-height: 90vh;
+            background: #1a1a1a;
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: popupFadeIn 0.3s ease;
+        }
+        .gallery-popup::-webkit-scrollbar {
+            width: 6px;
+        }
+        .gallery-popup::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        .gallery-popup::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        @keyframes popupFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .gallery-header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 15px;
+            background: #0a0a0a;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #0a0a0a;
+        }
+        .gallery-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-close-btn:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        .gallery-main {
+            padding: 20px;
+            text-align: center;
+            background: #0a0a0a;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .gallery-main img {
+            max-width: 100%;
+            max-height: 55vh;
+            border-radius: 12px;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+        .gallery-main img:hover {
+            transform: scale(1.02);
+        }
+        .gallery-info-section {
+            padding: 18px 25px;
+            background: #1a1a1a;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .gallery-info-section h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .gallery-info-section p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .gallery-thumbnails-section {
+            padding: 15px 20px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            background: #141414;
+            min-height: 110px;
+        }
+        .gallery-thumbnails-section::-webkit-scrollbar {
+            height: 5px;
+        }
+        .gallery-thumbnails-section::-webkit-scrollbar-track {
+            background: var(--border);
+            border-radius: 10px;
+        }
+        .gallery-thumbnails-section::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        .gallery-thumb {
+            flex-shrink: 0;
+            width: 110px;
+            height: 85px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            opacity: 0.6;
+        }
+        .gallery-thumb.active {
+            border-color: var(--accent);
+            opacity: 1;
+        }
+        .gallery-thumb:hover {
+            opacity: 1;
+            transform: scale(1.02);
+        }
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fullscreen Zoom Modal */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 30000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .zoom-modal.active {
+            display: flex;
+        }
+        .zoom-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            animation: zoomFadeIn 0.3s ease;
+        }
+        .zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 30001;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .zoom-close:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        @keyframes zoomFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .zoom-close { top: 10px; right: 15px; font-size: 1.8rem; width: 40px; height: 40px; }
+            .gallery-main { min-height: 300px; }
+            .gallery-main img { max-height: 40vh; }
+            .gallery-info-section { padding: 12px 15px; }
+            .gallery-info-section h3 { font-size: 1.2rem; }
+            .gallery-info-section p { font-size: 0.8rem; }
+            .gallery-thumb { width: 80px; height: 65px; }
+            .gallery-thumbnails-section { padding: 12px 15px; min-height: 95px; }
+        }
+
+        /* Corporate Info Sections */
         .corporate-section {
             background: var(--bg-card);
             border-radius: 24px;
@@ -546,10 +761,10 @@
             margin-right: 6px;
         }
 
-        /* Portfolio */
+        /* Portfolio - 4 CARDS */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -580,8 +795,12 @@
         .project-overlay h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 0.3rem; color: #fff; }
         .project-overlay p { font-size: 0.75rem; color: var(--accent); letter-spacing: 1px; }
 
-        .about-content { max-width: 900px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8; font-weight: 300; }
-        .signature { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-top: 2rem; color: var(--accent); }
+        @media (max-width: 1024px) {
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
 
         /* Customer Query Section */
         .query-section {
@@ -663,7 +882,7 @@
             .corporate-section h3 { font-size: 1.4rem; }
         }
 
-        /* Review Section - Two Columns */
+        /* Review Section */
         .review-section {
             background: var(--bg-secondary);
             border-radius: 24px;
@@ -804,7 +1023,7 @@
         .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 500; color: var(--accent); }
         .stat-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.5rem; }
 
-        /* Footer Styles */
+        /* Footer */
         footer {
             padding: 4rem 5%;
             border-top: 1px solid var(--border);
@@ -884,13 +1103,9 @@
 <div class="hero" id="home">
     <div class="carousel-container">
         <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Blanco/outdoor/3.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-
         <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Blanco/Indoor/2.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-
         <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Living_Room/1.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-
         <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Local_Dhaba/design/9.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
-
         <div class="carousel-slide" style="background-image: url('https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Big_Cup_Cafe/2.jpeg?auto=compress&cs=tinysrgb&w=1600');"></div>
     </div>
     <div class="hero-content">
@@ -918,18 +1133,54 @@
 </nav>
 
 <div id="mainContent" style="opacity:0; transition: opacity 1.2s ease;">
-    <!-- Portfolio -->
+    <!-- Portfolio - Signature Works (4 CARDS) -->
     <section id="portfolio">
         <div class="section-sub">Curated Spaces</div>
         <div class="section-title">Signature Works</div>
         <div class="portfolio-grid">
-            <div class="project-card"><img src="https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Rajmahal Villa</h3><p>Jaipur, Rajasthan</p></div></div>
-            <div class="project-card"><img src="https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Antilia Sky Estate</h3><p>Mumbai, Maharashtra</p></div></div>
-            <div class="project-card"><img src="https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""><div class="project-overlay"><h3>Lake Pichola Haveli</h3><p>Udaipur, Rajasthan</p></div></div>
+            <div class="project-card" data-project="rajmahal">
+                <img src="https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
+                <div class="project-overlay"><h3>Rajmahal Villa</h3><p>Jaipur, Rajasthan</p></div>
+            </div>
+            <div class="project-card" data-project="antilia">
+                <img src="https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
+                <div class="project-overlay"><h3>Antilia Sky Estate</h3><p>Mumbai, Maharashtra</p></div>
+            </div>
+            <div class="project-card" data-project="pichola">
+                <img src="https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
+                <div class="project-overlay"><h3>Lake Pichola Haveli</h3><p>Udaipur, Rajasthan</p></div>
+            </div>
+            <div class="project-card" data-project="goa">
+                <img src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
+                <div class="project-overlay"><h3>Serenity Cove Villa</h3><p>Goa, India</p></div>
+            </div>
         </div>
     </section>
 
-    <!-- NEW: EXECUTIVE SUMMARY & ABOUT US -->
+    <!-- Gallery Popup -->
+    <div id="galleryOverlay" class="gallery-overlay">
+        <div class="gallery-popup">
+            <div class="gallery-header">
+                <button class="gallery-close-btn" id="galleryCloseBtn">&times;</button>
+            </div>
+            <div class="gallery-main">
+                <img id="galleryMainImg" src="" alt="Gallery Image">
+            </div>
+            <div class="gallery-info-section">
+                <h3 id="galleryTitle">Project Name</h3>
+                <p id="galleryDesc">Project description will appear here...</p>
+            </div>
+            <div class="gallery-thumbnails-section" id="galleryThumbnails"></div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Zoom Modal -->
+    <div id="zoomModal" class="zoom-modal">
+        <div class="zoom-close" id="zoomCloseBtn">&times;</div>
+        <img id="zoomImg" src="" alt="Zoomed Image">
+    </div>
+
+    <!-- About Sections (condensed for space) -->
     <section id="about">
         <div class="section-sub">Who We Are</div>
         <div class="section-title">Executive Summary & About Us</div>
@@ -944,7 +1195,6 @@
         </div>
     </section>
 
-    <!-- NEW: ARCHITECTURAL SYNCHRONIZATION -->
     <section style="padding-top: 0;">
         <div class="section-sub">Precision Engineering</div>
         <div class="section-title">Architectural Synchronization: From Render to Reality</div>
@@ -957,7 +1207,6 @@
         </div>
     </section>
 
-    <!-- NEW: QUALITY ASSURANCE & PREMIUM CRAFTSMANSHIP -->
     <section style="padding-top: 0;">
         <div class="section-sub">Uncompromising Standards</div>
         <div class="section-title">Quality Assurance & Premium Craftsmanship</div>
@@ -967,7 +1216,6 @@
         </div>
     </section>
 
-    <!-- NEW: PROJECT SCHEDULING & PUNCTUAL DELIVERY -->
     <section style="padding-top: 0;">
         <div class="section-sub">Timely Execution</div>
         <div class="section-title">Project Scheduling & Punctual Delivery</div>
@@ -981,32 +1229,14 @@
         </div>
     </section>
 
-    <!-- Services Parallax -->
+    <!-- Services Parallax (shortened for brevity) -->
     <div id="services"></div>
-    
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">01</div><h2>Architecture & Spatial Engineering</h2><p>Advanced space utilization analysis and comprehensive structural solutions.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Advanced space utilization analysis</li><li><i class="fas fa-check-circle"></i> Structural blueprint design</li><li><i class="fas fa-check-circle"></i> Building elevations & working drawings</li><li><i class="fas fa-check-circle"></i> Comprehensive code compliance layouts</li></ul></div>
-    </div>
-
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">02</div><h2>Premium Interior Architecture</h2><p>Bespoke styling and luxury material curation for elite spaces.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Bespoke styling & luxury material curation</li><li><i class="fas fa-check-circle"></i> High-end minimalism & modern corporate setups</li><li><i class="fas fa-check-circle"></i> Elite commercial space design</li></ul></div>
-    </div>
-
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/161235/pexels-photo-161235.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">03</div><h2>Exterior Facade Engineering</h2><p>Design and execution of stunning building elevations.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Design & execution of building elevations</li><li><i class="fas fa-check-circle"></i> Complex external structural glazing</li><li><i class="fas fa-check-circle"></i> HPL/Composite paneling solutions</li><li><i class="fas fa-check-circle"></i> Architectural outdoor facade lighting</li></ul></div>
-    </div>
-
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/2762190/pexels-photo-2762190.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">04</div><h2>Hyper-Realistic 3D Visualization</h2><p>Photorealistic digital rendering and material simulation testing.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Photorealistic digital rendering</li><li><i class="fas fa-check-circle"></i> Material simulation testing</li><li><i class="fas fa-check-circle"></i> Multi-axis immersive walkthrough videos</li><li><i class="fas fa-check-circle"></i> Powered by 3ds Max, V-Ray & Corona</li></ul></div>
-    </div>
-
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/3849162/pexels-photo-3849162.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">05</div><h2>Civil & Infrastructure Construction</h2><p>Full-scale structural build-outs and MEP integration.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Full-scale structural build-outs</li><li><i class="fas fa-check-circle"></i> Core shell execution & concrete work</li><li><i class="fas fa-check-circle"></i> Civil remodeling & plumbing grids</li><li><i class="fas fa-check-circle"></i> High-performance MEP services</li></ul></div>
-    </div>
-
-    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');">
-        <div class="service-content"><div class="service-number">06</div><h2>Turnkey Project Execution</h2><p>Comprehensive project management and seamless handover.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Comprehensive on-site project management</li><li><i class="fas fa-check-circle"></i> Direct procurement of specialized materials</li><li><i class="fas fa-check-circle"></i> Custom industrial-grade furniture manufacturing</li><li><i class="fas fa-check-circle"></i> Ultimate clean-up & handover</li></ul></div>
-    </div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">01</div><h2>Architecture & Spatial Engineering</h2><p>Advanced space utilization analysis and comprehensive structural solutions.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Advanced space utilization analysis</li><li><i class="fas fa-check-circle"></i> Structural blueprint design</li><li><i class="fas fa-check-circle"></i> Building elevations & working drawings</li><li><i class="fas fa-check-circle"></i> Comprehensive code compliance layouts</li></ul></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">02</div><h2>Premium Interior Architecture</h2><p>Bespoke styling and luxury material curation for elite spaces.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Bespoke styling & luxury material curation</li><li><i class="fas fa-check-circle"></i> High-end minimalism & modern corporate setups</li><li><i class="fas fa-check-circle"></i> Elite commercial space design</li></ul></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/161235/pexels-photo-161235.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">03</div><h2>Exterior Facade Engineering</h2><p>Design and execution of stunning building elevations.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Design & execution of building elevations</li><li><i class="fas fa-check-circle"></i> Complex external structural glazing</li><li><i class="fas fa-check-circle"></i> HPL/Composite paneling solutions</li><li><i class="fas fa-check-circle"></i> Architectural outdoor facade lighting</li></ul></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/2762190/pexels-photo-2762190.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">04</div><h2>Hyper-Realistic 3D Visualization</h2><p>Photorealistic digital rendering and material simulation testing.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Photorealistic digital rendering</li><li><i class="fas fa-check-circle"></i> Material simulation testing</li><li><i class="fas fa-check-circle"></i> Multi-axis immersive walkthrough videos</li><li><i class="fas fa-check-circle"></i> Powered by 3ds Max, V-Ray & Corona</li></ul></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/3849162/pexels-photo-3849162.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">05</div><h2>Civil & Infrastructure Construction</h2><p>Full-scale structural build-outs and MEP integration.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Full-scale structural build-outs</li><li><i class="fas fa-check-circle"></i> Core shell execution & concrete work</li><li><i class="fas fa-check-circle"></i> Civil remodeling & plumbing grids</li><li><i class="fas fa-check-circle"></i> High-performance MEP services</li></ul></div></div>
+    <div class="service-parallax" style="background-image: url('https://images.pexels.com/photos/4392279/pexels-photo-4392279.jpeg?auto=compress&cs=tinysrgb&w=1600');"><div class="service-content"><div class="service-number">06</div><h2>Turnkey Project Execution</h2><p>Comprehensive project management and seamless handover.</p><ul class="service-features-list"><li><i class="fas fa-check-circle"></i> Comprehensive on-site project management</li><li><i class="fas fa-check-circle"></i> Direct procurement of specialized materials</li><li><i class="fas fa-check-circle"></i> Custom industrial-grade furniture manufacturing</li><li><i class="fas fa-check-circle"></i> Ultimate clean-up & handover</li></ul></div></div>
 
     <!-- Customer Query Section -->
     <section>
@@ -1017,20 +1247,10 @@
                 <h3>✨ Tell us about your project</h3>
                 <form id="queryForm">
                     <div class="query-grid">
-                        <div class="query-form-group">
-                            <label>Full Name *</label>
-                            <input type="text" id="queryName" placeholder="Your full name" required>
-                        </div>
-                        <div class="query-form-group">
-                            <label>Email Address *</label>
-                            <input type="email" id="queryEmail" placeholder="your@email.com" required>
-                        </div>
-                        <div class="query-form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" id="queryPhone" placeholder="+91 XXXXX XXXXX" required>
-                        </div>
-                        <div class="query-form-group">
-                            <label>Select Service *</label>
+                        <div class="query-form-group"><label>Full Name *</label><input type="text" id="queryName" placeholder="Your full name" required></div>
+                        <div class="query-form-group"><label>Email Address *</label><input type="email" id="queryEmail" placeholder="your@email.com" required></div>
+                        <div class="query-form-group"><label>Phone Number *</label><input type="tel" id="queryPhone" placeholder="+91 XXXXX XXXXX" required></div>
+                        <div class="query-form-group"><label>Select Service *</label>
                             <select id="queryService" required>
                                 <option value="">-- Select a service --</option>
                                 <option value="Architecture & Spatial Engineering">01. Architecture & Spatial Engineering</option>
@@ -1041,10 +1261,7 @@
                                 <option value="Turnkey Project Execution">06. Turnkey Project Execution</option>
                             </select>
                         </div>
-                        <div class="query-form-group query-full-width">
-                            <label>Project Details / Message *</label>
-                            <textarea id="queryMessage" rows="4" placeholder="Tell us about your project requirements, budget, timeline, etc." required></textarea>
-                        </div>
+                        <div class="query-form-group query-full-width"><label>Project Details / Message *</label><textarea id="queryMessage" rows="4" placeholder="Tell us about your project requirements, budget, timeline, etc." required></textarea></div>
                     </div>
                     <button type="submit" class="query-submit-btn"><i class="fas fa-paper-plane"></i> Send Inquiry</button>
                 </form>
@@ -1072,16 +1289,9 @@
                 <div class="review-form-box">
                     <h3>📝 Write a Review</h3>
                     <form id="reviewForm">
-                        <div class="query-form-group">
-                            <label>Your Name *</label>
-                            <input type="text" id="reviewerName" placeholder="Enter your name" required>
-                        </div>
-                        <div class="query-form-group">
-                            <label>Your Email</label>
-                            <input type="email" id="reviewerEmail" placeholder="your@email.com">
-                        </div>
-                        <div class="query-form-group">
-                            <label>Your Rating *</label>
+                        <div class="query-form-group"><label>Your Name *</label><input type="text" id="reviewerName" placeholder="Enter your name" required></div>
+                        <div class="query-form-group"><label>Your Email</label><input type="email" id="reviewerEmail" placeholder="your@email.com"></div>
+                        <div class="query-form-group"><label>Your Rating *</label>
                             <div class="star-rating">
                                 <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
                                 <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
@@ -1090,10 +1300,7 @@
                                 <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
                             </div>
                         </div>
-                        <div class="query-form-group">
-                            <label>Your Review *</label>
-                            <textarea id="reviewMessage" rows="4" placeholder="Share your experience with Galaxy Interiors..." required></textarea>
-                        </div>
+                        <div class="query-form-group"><label>Your Review *</label><textarea id="reviewMessage" rows="4" placeholder="Share your experience with Galaxy Interiors..." required></textarea></div>
                         <button type="submit" class="review-submit-btn"><i class="fas fa-paper-plane"></i> Submit Review</button>
                     </form>
                 </div>
@@ -1121,19 +1328,9 @@
     <!-- Footer -->
     <footer>
         <div class="footer-logo">GALAXY INTERIORS</div>
-        <div class="footer-address">
-            <i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 8px;"></i>
-            PLOT NO-1456/14596, SATYA VIHAR, PANDARA, RASULGARH, BHUBANESWAR, Khordha, Odisha, 751010
-        </div>
-        <div class="footer-details">
-            <span><i class="fas fa-id-card"></i> PAN: ABLFM9970H</span>
-            <span><i class="fas fa-building"></i> GST No: 21ABLFM9970H1ZW</span>
-        </div>
-        <div class="social-links">
-            <a href="https://www.instagram.com/galaxyinteriors786" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
-            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i> FACEBOOK</a>
-            <a href="mailto:interiorsgalaxybbsr@gmail.com"><i class="fas fa-envelope"></i> MAIL</a>
-        </div>
+        <div class="footer-address"><i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 8px;"></i>PLOT NO-1456/14596, SATYA VIHAR, PANDARA, RASULGARH, BHUBANESWAR, Khordha, Odisha, 751010</div>
+        <div class="footer-details"><span><i class="fas fa-id-card"></i> PAN: ABLFM9970H</span><span><i class="fas fa-building"></i> GST No: 21ABLFM9970H1ZW</span></div>
+        <div class="social-links"><a href="https://www.instagram.com/galaxyinteriors786" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> FACEBOOK</a><a href="mailto:interiorsgalaxybbsr@gmail.com"><i class="fas fa-envelope"></i> MAIL</a></div>
         <p class="copyright">© 2026 Galaxy Interiors — All rights reserved.</p>
     </footer>
 </div>
@@ -1166,221 +1363,192 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    let reviews = [
-        { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury. Every detail was perfection.", date: "2025-02-10" },
-        { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional and delivered beyond expectations.", date: "2025-01-28" },
-        { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical. Highly recommended.", date: "2025-02-05" },
-        { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly and executed flawlessly.", date: "2025-02-01" }
-    ];
+    // Gallery Data
+    const galleryData = {
+        rajmahal: {
+            title: "Rajmahal Villa - Jaipur, Rajasthan",
+            description: "A magnificent fusion of traditional Rajasthani architecture with modern luxury. This 15,000 sq ft villa features hand-carved marble, custom brass fixtures, and a central courtyard that brings natural light into every corner.",
+            images: [
+                "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ]
+        },
+        antilia: {
+            title: "Antilia Sky Estate - Mumbai, Maharashtra",
+            description: "A breathtaking penthouse overlooking the Arabian Sea. This 8,500 sq ft residence features floor-to-ceiling glass windows, a private infinity pool, and state-of-the-art home automation.",
+            images: [
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ]
+        },
+        pichola: {
+            title: "Lake Pichola Haveli - Udaipur, Rajasthan",
+            description: "A restored 18th-century haveli transformed into a luxury boutique residence. Overlooking Lake Pichola, this project combines heritage preservation with contemporary comforts.",
+            images: [
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ]
+        },
+        goa: {
+            title: "Serenity Cove Villa - Goa, India",
+            description: "A stunning beachfront villa that blends contemporary design with coastal living. Features open-plan layouts, natural stone finishes, and seamless indoor-outdoor flow.",
+            images: [
+                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ]
+        }
+    };
 
-    function renderStarsDisplay(rating) { 
-        let str = ''; 
-        for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; 
-        return str; 
+    let currentGalleryProject = null;
+    let currentGalleryIndex = 0;
+
+    const galleryOverlay = document.getElementById('galleryOverlay');
+    const galleryMainImg = document.getElementById('galleryMainImg');
+    const galleryTitle = document.getElementById('galleryTitle');
+    const galleryDesc = document.getElementById('galleryDesc');
+    const galleryThumbnails = document.getElementById('galleryThumbnails');
+    const galleryCloseBtn = document.getElementById('galleryCloseBtn');
+
+    const zoomModal = document.getElementById('zoomModal');
+    const zoomImg = document.getElementById('zoomImg');
+    const zoomCloseBtn = document.getElementById('zoomCloseBtn');
+
+    function openGallery(projectId) {
+        currentGalleryProject = galleryData[projectId];
+        if (!currentGalleryProject) return;
+        currentGalleryIndex = 0;
+        updateGalleryDisplay();
+        galleryOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
+    function updateGalleryDisplay() {
+        if (!currentGalleryProject) return;
+        galleryMainImg.src = currentGalleryProject.images[currentGalleryIndex];
+        galleryTitle.textContent = currentGalleryProject.title;
+        galleryDesc.textContent = currentGalleryProject.description;
+        renderGalleryThumbnails();
+    }
+
+    function renderGalleryThumbnails() {
+        galleryThumbnails.innerHTML = '';
+        currentGalleryProject.images.forEach((imgSrc, index) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'gallery-thumb';
+            if (index === currentGalleryIndex) thumb.classList.add('active');
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            thumb.appendChild(img);
+            thumb.addEventListener('click', () => {
+                currentGalleryIndex = index;
+                updateGalleryDisplay();
+            });
+            galleryThumbnails.appendChild(thumb);
+        });
+    }
+
+    function closeGallery() {
+        galleryOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function openZoom(imageSrc) {
+        zoomImg.src = imageSrc;
+        zoomModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeZoom() {
+        zoomModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    galleryCloseBtn.addEventListener('click', closeGallery);
+    galleryOverlay.addEventListener('click', (e) => {
+        if (e.target === galleryOverlay) closeGallery();
+    });
+    galleryMainImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (galleryMainImg.src) openZoom(galleryMainImg.src);
+    });
+    zoomCloseBtn.addEventListener('click', closeZoom);
+    zoomModal.addEventListener('click', (e) => {
+        if (e.target === zoomModal) closeZoom();
+    });
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const projectId = card.getAttribute('data-project');
+            if (projectId && galleryData[projectId]) openGallery(projectId);
+        });
+    });
+
+    let reviews = [
+        { name: "Ananya Sharma", stars: 5, text: "Absolutely stunning transformation! Galaxy Interiors gave our home a soulful luxury.", date: "2025-02-10" },
+        { name: "Rajiv Mehta", stars: 4, text: "Excellent project management and design sense. The team is very professional.", date: "2025-01-28" },
+        { name: "Priya Singh", stars: 5, text: "I'm in love with my new living room! The lighting design is magical.", date: "2025-02-05" },
+        { name: "Neha Kapoor", stars: 5, text: "Best interior designers in Bhubaneswar! They understood our vision perfectly.", date: "2025-02-01" }
+    ];
+
+    function renderStarsDisplay(rating) { let str = ''; for(let i=1;i<=5;i++) str += (i<=rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>'; return str; }
     function renderReviews() {
         const container = document.getElementById('reviewsContainer');
         if(!container) return;
         container.innerHTML = '';
         [...reviews].sort((a,b)=>new Date(b.date)-new Date(a.date)).forEach(rev => {
-            const div = document.createElement('div'); 
-            div.className = 'review-card';
+            const div = document.createElement('div'); div.className = 'review-card';
             div.innerHTML = `<div class="review-header"><span class="reviewer-name">${escapeHtml(rev.name)}</span><span class="review-stars-display">${renderStarsDisplay(rev.stars)}</span></div><div class="review-text">“${escapeHtml(rev.text)}”</div><div class="review-date">${rev.date}</div>`;
             container.appendChild(div);
         });
-        
         let scrollInt;
         if(container.scrollHeight > container.clientHeight) {
             let step = 1;
-            scrollInt = setInterval(() => { 
-                if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
-                    container.scrollTop = 0;
-                } else {
-                    container.scrollTop += step;
-                }
-            }, 40);
+            scrollInt = setInterval(() => { if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) container.scrollTop = 0; else container.scrollTop += step; }, 40);
             container.addEventListener('mouseenter', () => clearInterval(scrollInt));
-            container.addEventListener('mouseleave', () => { 
-                clearInterval(scrollInt);
-                scrollInt = setInterval(() => { 
-                    if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) {
-                        container.scrollTop = 0;
-                    } else {
-                        container.scrollTop += step;
-                    }
-                }, 40);
-            });
+            container.addEventListener('mouseleave', () => { clearInterval(scrollInt); scrollInt = setInterval(() => { if(container.scrollTop + container.clientHeight >= container.scrollHeight - 2) container.scrollTop = 0; else container.scrollTop += step; }, 40); });
         }
     }
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
 
-    function escapeHtml(str) { 
-        return str.replace(/[&<>]/g, function(m){ 
-            if(m==='&') return '&amp;'; 
-            if(m==='<') return '&lt;'; 
-            if(m==='>') return '&gt;'; 
-            return m;
-        }); 
-    }
-
-    function initAll() {
-        initCustomCursor();
-        initCarousel();
-        initGSAP();
-        initScrollAnimations();
-        initQueryForm();
-        initReviewForm();
-        renderReviews();
-    }
-
+    function initAll() { initCustomCursor(); initCarousel(); initGSAP(); initScrollAnimations(); initQueryForm(); initReviewForm(); renderReviews(); }
     function initCustomCursor() {
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        if (!cursor || !cursorFollower) return;
-        let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-            followerX = mouseX;
-            followerY = mouseY;
-        });
-        function animateFollower() {
-            followerX += (mouseX - followerX) * 0.12;
-            followerY += (mouseY - followerY) * 0.12;
-            cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-            requestAnimationFrame(animateFollower);
-        }
-        animateFollower();
-        
-        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.width = '70px';
-                cursor.style.height = '70px';
-                cursor.style.background = 'rgba(212, 175, 55, 0.3)';
-                cursor.style.backdropFilter = 'blur(4px)';
-                cursorFollower.style.opacity = '0';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.width = '32px';
-                cursor.style.height = '32px';
-                cursor.style.background = '#d4af37';
-                cursor.style.backdropFilter = 'none';
-                cursorFollower.style.opacity = '0.6';
-            });
+        const cursor = document.querySelector('.cursor'); const cf = document.querySelector('.cursor-follower');
+        if (!cursor || !cf) return;
+        let mx=0,my=0,fx=0,fy=0;
+        document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx}px, ${my}px)`; fx = mx; fy = my; });
+        function anim() { fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12; cf.style.transform = `translate(${fx}px, ${fy}px)`; requestAnimationFrame(anim); } anim();
+        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn, .gallery-thumb, .gallery-close-btn, .zoom-close, .gallery-main img').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.width = '70px'; cursor.style.height = '70px'; cursor.style.background = 'rgba(212, 175, 55, 0.3)'; cursor.style.backdropFilter = 'blur(4px)'; cf.style.opacity = '0'; });
+            el.addEventListener('mouseleave', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; cursor.style.background = '#d4af37'; cursor.style.backdropFilter = 'none'; cf.style.opacity = '0.6'; });
         });
     }
-
     function initCarousel() {
-        let currentSlide = 0;
-        let slideInterval;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dotsContainer = document.getElementById('carouselDots');
+        let currentSlide = 0, slideInterval;
+        const slides = document.querySelectorAll('.carousel-slide'), dotsContainer = document.getElementById('carouselDots');
         if (!slides.length) return;
-        
-        slides.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.classList.add('carousel-dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => {
-                slides.forEach((s, idx) => s.classList.remove('active'));
-                slides[i].classList.add('active');
-                document.querySelectorAll('.carousel-dot').forEach((d, idx) => d.classList.remove('active'));
-                dot.classList.add('active');
-                currentSlide = i;
-            });
-            dotsContainer.appendChild(dot);
-        });
-        
-        function nextSlide() {
-            let next = currentSlide + 1;
-            if (next >= slides.length) next = 0;
-            slides.forEach(s => s.classList.remove('active'));
-            slides[next].classList.add('active');
-            document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.remove('active'));
-            if (dotsContainer.children[next]) dotsContainer.children[next].classList.add('active');
-            currentSlide = next;
-        }
+        slides.forEach((_, i) => { const dot = document.createElement('div'); dot.classList.add('carousel-dot'); if (i === 0) dot.classList.add('active'); dot.addEventListener('click', () => { slides.forEach((s, idx) => s.classList.remove('active')); slides[i].classList.add('active'); document.querySelectorAll('.carousel-dot').forEach((d, idx) => d.classList.remove('active')); dot.classList.add('active'); currentSlide = i; }); dotsContainer.appendChild(dot); });
+        function nextSlide() { let next = currentSlide + 1; if (next >= slides.length) next = 0; slides.forEach(s => s.classList.remove('active')); slides[next].classList.add('active'); document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.remove('active')); if (dotsContainer.children[next]) dotsContainer.children[next].classList.add('active'); currentSlide = next; }
         slideInterval = setInterval(nextSlide, 5000);
     }
+    function initGSAP() { gsap.registerPlugin(ScrollTrigger); gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" }); gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" }); gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" }); gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" }); }
+    function initScrollAnimations() { gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => { gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } }); }); gsap.utils.toArray('.service-content').forEach(c => { gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } }); }); gsap.utils.toArray('.service-parallax').forEach(p => { gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); }); }
+    function initQueryForm() { document.getElementById('queryForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('queryName').value.trim(); const email = document.getElementById('queryEmail').value.trim(); const phone = document.getElementById('queryPhone').value.trim(); const service = document.getElementById('queryService').value; const message = document.getElementById('queryMessage').value.trim(); if(!name || !email || !phone || !service || !message) { alert("Please fill in all fields."); return; } const msg = `Hello Galaxy Interiors!%0A%0A*New Project Inquiry*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(message)}`; window.open(`https://wa.me/919556404467?text=${msg}`, '_blank'); alert("Thank you! You will be redirected to WhatsApp."); document.getElementById('queryForm').reset(); }); }
+    function initReviewForm() { document.getElementById('reviewForm')?.addEventListener('submit', (e) => { e.preventDefault(); const name = document.getElementById('reviewerName').value.trim(); const msg = document.getElementById('reviewMessage').value.trim(); const ratingInput = document.querySelector('#reviewForm input[name="rating"]:checked'); const rating = ratingInput ? parseInt(ratingInput.value) : 0; if(!name || !msg || rating === 0) { alert("Please fill all fields."); return; } reviews.unshift({ name, stars: rating, text: msg, date: new Date().toISOString().slice(0,10) }); renderReviews(); document.getElementById('reviewForm').reset(); alert("Thank you! Your review has been added."); }); }
 
-    function initGSAP() {
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.to('.hero-content h1', { opacity: 1, y: 0, duration: 1.2, delay: 0.5, ease: "power3.out" });
-        gsap.to('.hero-line', { opacity: 1, width: 120, duration: 1, delay: 0.8, ease: "back.out(1.2)" });
-        gsap.to('.hero-content p', { opacity: 1, y: 0, duration: 1, delay: 1.1, ease: "power3.out" });
-        gsap.to('.cta-btn', { opacity: 1, y: 0, duration: 1, delay: 1.4, ease: "elastic.out(1, 0.5)" });
-    }
-
-    function initScrollAnimations() {
-        gsap.utils.toArray('#portfolio, #about, #contact-stats, .market-grid, .query-section, .review-section, .corporate-section').forEach(s => {
-            gsap.from(s, { opacity: 0, y: 60, duration: 1, scrollTrigger: { trigger: s, start: 'top 85%', once: true } });
-        });
-        gsap.utils.toArray('.service-content').forEach(c => {
-            gsap.to(c, { opacity: 1, y: 0, duration: 1, scrollTrigger: { trigger: c.closest('.service-parallax'), start: 'top 75%', once: true } });
-        });
-        gsap.utils.toArray('.service-parallax').forEach(p => {
-            gsap.to(p, { backgroundPosition: '50% 40%', ease: 'none', scrollTrigger: { trigger: p, start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
-        });
-    }
-
-    function initQueryForm() {
-        const queryForm = document.getElementById('queryForm');
-        if(queryForm) {
-            queryForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('queryName').value.trim();
-                const email = document.getElementById('queryEmail').value.trim();
-                const phone = document.getElementById('queryPhone').value.trim();
-                const service = document.getElementById('queryService').value;
-                const message = document.getElementById('queryMessage').value.trim();
-                
-                if(!name || !email || !phone || !service || !message) {
-                    alert("Please fill in all fields.");
-                    return;
-                }
-                
-                const whatsappMsg = `Hello Galaxy Interiors!%0A%0A*New Project Inquiry*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(message)}`;
-                window.open(`https://wa.me/919556404467?text=${whatsappMsg}`, '_blank');
-                alert("Thank you! You will be redirected to WhatsApp to complete your inquiry.");
-                queryForm.reset();
-            });
-        }
-    }
-
-    function initReviewForm() {
-        const reviewForm = document.getElementById('reviewForm');
-        if(reviewForm) {
-            reviewForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('reviewerName').value.trim();
-                const msg = document.getElementById('reviewMessage').value.trim();
-                const ratingInput = document.querySelector('#reviewForm input[name="rating"]:checked');
-                const rating = ratingInput ? parseInt(ratingInput.value) : 0;
-                
-                if(!name || !msg || rating === 0) { 
-                    alert("Please enter your name, review, and select a star rating."); 
-                    return; 
-                }
-                
-                const newReview = { 
-                    name: name, 
-                    stars: rating, 
-                    text: msg, 
-                    date: new Date().toISOString().slice(0,10) 
-                };
-                reviews.unshift(newReview);
-                renderReviews();
-                reviewForm.reset();
-                alert("Thank you! Your review has been added to our wall of love ✨");
-            });
-        }
-    }
-
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinksContainer = document.getElementById('navLinks');
-    const menuIcon = mobileMenuBtn?.querySelector('i');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn'), navLinksContainer = document.getElementById('navLinks'), menuIcon = mobileMenuBtn?.querySelector('i');
     function closeMobileMenu() { if(navLinksContainer.classList.contains('active')) { navLinksContainer.classList.remove('active'); menuIcon.classList.remove('fa-times'); menuIcon.classList.add('fa-bars'); } }
     function openMobileMenu() { navLinksContainer.classList.add('active'); menuIcon.classList.remove('fa-bars'); menuIcon.classList.add('fa-times'); }
     if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', (e) => { e.stopPropagation(); if(navLinksContainer.classList.contains('active')) closeMobileMenu(); else openMobileMenu(); });
@@ -1391,16 +1559,8 @@
     document.addEventListener('click', (e) => { if(navLinksContainer.classList.contains('active') && !navLinksContainer.contains(e.target) && !mobileMenuBtn.contains(e.target)) closeMobileMenu(); });
     window.addEventListener('resize', () => { if(window.innerWidth > 768) closeMobileMenu(); });
     
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle?.querySelector('i');
-    if(themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light');
-            if(document.body.classList.contains('light')) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); localStorage.setItem('theme', 'light'); }
-            else { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); localStorage.setItem('theme', 'dark'); }
-        });
-        if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light'); themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); }
-    }
+    const themeToggle = document.getElementById('themeToggle'), themeIcon = themeToggle?.querySelector('i');
+    if(themeToggle) { themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); if(document.body.classList.contains('light')) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); localStorage.setItem('theme','light'); } else { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); localStorage.setItem('theme','dark'); } }); if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light'); themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); } }
     window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%'; else nav.style.padding = '1.5rem 5%'; });
 </script>
 </body>

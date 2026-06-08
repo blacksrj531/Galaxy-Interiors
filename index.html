@@ -530,7 +530,7 @@
             .before-after-section { padding: 1.5rem; margin: 1rem auto; }
         }
 
-        /* Gallery Popup - FIXED: Scrollbars properly contained inside card */
+        /* Gallery Popup - WITH PARTITIONED THUMBNAILS (RESPECTS LIGHT/DARK THEME) */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -548,7 +548,7 @@
             width: 90%;
             max-width: 1300px;
             max-height: 90vh;
-            background: #1a1a1a;
+            background: var(--bg-secondary);
             border-radius: 20px;
             border: 2px solid var(--accent);
             display: flex;
@@ -558,24 +558,10 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
-        /* Custom scrollbar - stays inside the card */
-        .gallery-popup::-webkit-scrollbar {
-            width: 8px;
-        }
-        .gallery-popup::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin: 8px 0;
-        }
-        .gallery-popup::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
-        /* Firefox scrollbar */
-        .gallery-popup {
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) rgba(255, 255, 255, 0.05);
-        }
+        .gallery-popup::-webkit-scrollbar { width: 8px; }
+        .gallery-popup::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; margin: 8px 0; }
+        .gallery-popup::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .gallery-popup { scrollbar-width: thin; scrollbar-color: var(--accent) var(--border); }
 
         @keyframes popupFadeIn {
             from { opacity: 0; transform: scale(0.9); }
@@ -586,7 +572,7 @@
             display: flex;
             justify-content: flex-end;
             padding: 10px 15px;
-            background: #0a0a0a;
+            background: var(--bg-primary);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -596,7 +582,7 @@
         .gallery-close-btn {
             background: none;
             border: none;
-            color: white;
+            color: var(--text-primary);
             font-size: 1.8rem;
             cursor: pointer;
             transition: 0.3s;
@@ -615,7 +601,7 @@
         .gallery-main {
             padding: 20px;
             text-align: center;
-            background: #0a0a0a;
+            background: var(--bg-primary);
             min-height: 400px;
             display: flex;
             align-items: center;
@@ -635,7 +621,7 @@
 
         .gallery-info-section {
             padding: 18px 25px;
-            background: #1a1a1a;
+            background: var(--bg-card);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
@@ -652,33 +638,55 @@
             line-height: 1.6;
         }
 
-        .gallery-thumbnails-section {
+        /* PARTITIONED THUMBNAILS SECTION - DESIGN VIEW & REAL VIEW */
+        .gallery-thumbnails-partition {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
             padding: 15px 20px;
+            background: var(--bg-secondary);
+            flex-shrink: 0;
+        }
+        
+        .thumb-group {
+            width: 100%;
+        }
+        
+        .thumb-group-title {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            display: inline-block;
+        }
+        
+        .thumb-group-scroll {
             display: flex;
             gap: 12px;
             overflow-x: auto;
             overflow-y: hidden;
-            background: #141414;
-            min-height: auto;
-            flex-shrink: 0;
+            padding-bottom: 8px;
         }
-        /* Horizontal scrollbar styling */
-        .gallery-thumbnails-section::-webkit-scrollbar {
-            height: 6px;
+        
+        .thumb-group-scroll::-webkit-scrollbar {
+            height: 5px;
         }
-        .gallery-thumbnails-section::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+        .thumb-group-scroll::-webkit-scrollbar-track {
+            background: var(--border);
             border-radius: 10px;
         }
-        .gallery-thumbnails-section::-webkit-scrollbar-thumb {
+        .thumb-group-scroll::-webkit-scrollbar-thumb {
             background: var(--accent);
             border-radius: 10px;
         }
-
+        
         .gallery-thumb {
             flex-shrink: 0;
-            width: 110px;
-            height: 85px;
+            width: 100px;
+            height: 75px;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
@@ -706,9 +714,9 @@
             .gallery-info-section { padding: 12px 15px; }
             .gallery-info-section h3 { font-size: 1.2rem; }
             .gallery-info-section p { font-size: 0.8rem; }
-            .gallery-thumb { width: 80px; height: 65px; }
-            .gallery-thumbnails-section { padding: 12px 15px; }
-            .gallery-popup::-webkit-scrollbar { width: 5px; }
+            .gallery-thumb { width: 75px; height: 60px; }
+            .gallery-thumbnails-partition { padding: 12px 15px; gap: 12px; }
+            .thumb-group-title { font-size: 0.65rem; }
         }
 
         /* Fullscreen Zoom Modal */
@@ -1338,7 +1346,7 @@
         </div>
     </section>
 
-    <!-- Gallery Popup -->
+    <!-- Gallery Popup with Partitioned Thumbnails -->
     <div id="galleryOverlay" class="gallery-overlay">
         <div class="gallery-popup">
             <div class="gallery-header">
@@ -1351,7 +1359,7 @@
                 <h3 id="galleryTitle">Project Name</h3>
                 <p id="galleryDesc">Project description will appear here...</p>
             </div>
-            <div class="gallery-thumbnails-section" id="galleryThumbnails"></div>
+            <div class="gallery-thumbnails-partition" id="galleryThumbnailsPartition"></div>
         </div>
     </div>
 
@@ -1624,118 +1632,187 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // Gallery Data
+    // Gallery Data with separated DESIGN and REAL images for each project
     const galleryData = {
         STUDIO_AKIDI: {
             title: "STUDIO AKIDI - Rupali square, Bhubaneswar",
             description: "Studio Akidi is an aesthetically pleasing women's clothing boutique located right at Rupali Square, Saheed Nagar, Bhubaneswar. It is widely popular for its collection of premium, curated handloom and designer sarees.",
-            images: [
-                "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800"
+            designImages: [
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/design/1.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/design/2.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/design/3.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ],
+            realImages: [
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/1.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/2.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/3.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/4.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/5.jpeg?auto=compress&cs=tinysrgb&w=800"
             ]
         },
         antilia: {
             title: "Antilia Sky Estate - Mumbai, Maharashtra",
             description: "A breathtaking penthouse overlooking the Arabian Sea. This 8,500 sq ft residence features floor-to-ceiling glass windows, a private infinity pool, and state-of-the-art home automation.",
-            images: [
+            designImages: [
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ],
+            realImages: [
                 "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800"
             ]
         },
         pichola: {
             title: "Lake Pichola Haveli - Udaipur, Rajasthan",
             description: "A restored 18th-century haveli transformed into a luxury boutique residence. Overlooking Lake Pichola, this project combines heritage preservation with contemporary comforts.",
-            images: [
+            designImages: [
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ],
+            realImages: [
                 "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800"
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800"
             ]
         },
         goa: {
             title: "Serenity Cove Villa - Goa, India",
             description: "A stunning beachfront villa that blends contemporary design with coastal living. Features open-plan layouts, natural stone finishes, and seamless indoor-outdoor flow.",
-            images: [
+            designImages: [
+                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ],
+            realImages: [
                 "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800"
+                "https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800"
             ]
         }
     };
 
-    let currentGalleryProject = null;
-    let currentGalleryIndex = 0;
+    let currentProject = null;
+    let currentImageSet = null; // 'design' or 'real'
+    let currentIndex = 0;
 
     const galleryOverlay = document.getElementById('galleryOverlay');
     const galleryMainImg = document.getElementById('galleryMainImg');
     const galleryTitle = document.getElementById('galleryTitle');
     const galleryDesc = document.getElementById('galleryDesc');
-    const galleryThumbnails = document.getElementById('galleryThumbnails');
-    const galleryCloseBtn = document.getElementById('galleryCloseBtn');
+    const thumbsContainer = document.getElementById('galleryThumbnailsPartition');
 
     const zoomModal = document.getElementById('zoomModal');
     const zoomImg = document.getElementById('zoomImg');
     const zoomCloseBtn = document.getElementById('zoomCloseBtn');
 
+    function renderPartitionedThumbnails() {
+        if (!currentProject) return;
+        thumbsContainer.innerHTML = '';
+        
+        // DESIGN VIEW GROUP
+        const designGroup = document.createElement('div');
+        designGroup.className = 'thumb-group';
+        designGroup.innerHTML = `<div class="thumb-group-title"><i class="fas fa-pencil-ruler"></i> DESIGN VIEW</div>`;
+        const designScroll = document.createElement('div');
+        designScroll.className = 'thumb-group-scroll';
+        currentProject.designImages.forEach((src, idx) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'gallery-thumb' + (currentImageSet === 'design' && currentIndex === idx ? ' active' : '');
+            const img = document.createElement('img');
+            img.src = src;
+            thumb.appendChild(img);
+            thumb.onclick = (e) => {
+                e.stopPropagation();
+                currentImageSet = 'design';
+                currentIndex = idx;
+                updateMainImage();
+                highlightActiveThumb();
+            };
+            designScroll.appendChild(thumb);
+        });
+        designGroup.appendChild(designScroll);
+        
+        // REAL VIEW GROUP
+        const realGroup = document.createElement('div');
+        realGroup.className = 'thumb-group';
+        realGroup.innerHTML = `<div class="thumb-group-title"><i class="fas fa-camera"></i> REAL VIEW (Completed)</div>`;
+        const realScroll = document.createElement('div');
+        realScroll.className = 'thumb-group-scroll';
+        currentProject.realImages.forEach((src, idx) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'gallery-thumb' + (currentImageSet === 'real' && currentIndex === idx ? ' active' : '');
+            const img = document.createElement('img');
+            img.src = src;
+            thumb.appendChild(img);
+            thumb.onclick = (e) => {
+                e.stopPropagation();
+                currentImageSet = 'real';
+                currentIndex = idx;
+                updateMainImage();
+                highlightActiveThumb();
+            };
+            realScroll.appendChild(thumb);
+        });
+        realGroup.appendChild(realScroll);
+        
+        thumbsContainer.appendChild(designGroup);
+        thumbsContainer.appendChild(realGroup);
+    }
+    
+    function highlightActiveThumb() {
+        const allThumbs = document.querySelectorAll('.gallery-thumb');
+        allThumbs.forEach(thumb => thumb.classList.remove('active'));
+        if (currentImageSet === 'design') {
+            const designThumbs = document.querySelectorAll('.thumb-group:first-child .gallery-thumb');
+            if (designThumbs[currentIndex]) designThumbs[currentIndex].classList.add('active');
+        } else {
+            const realThumbs = document.querySelectorAll('.thumb-group:last-child .gallery-thumb');
+            if (realThumbs[currentIndex]) realThumbs[currentIndex].classList.add('active');
+        }
+    }
+    
+    function updateMainImage() {
+        if (!currentProject) return;
+        let imgUrl = '';
+        if (currentImageSet === 'design') {
+            imgUrl = currentProject.designImages[currentIndex];
+        } else {
+            imgUrl = currentProject.realImages[currentIndex];
+        }
+        galleryMainImg.src = imgUrl;
+        galleryTitle.textContent = currentProject.title;
+        galleryDesc.textContent = currentProject.description;
+    }
+    
     function openGallery(projectId) {
-        currentGalleryProject = galleryData[projectId];
-        if (!currentGalleryProject) return;
-        currentGalleryIndex = 0;
-        updateGalleryDisplay();
+        currentProject = galleryData[projectId];
+        if (!currentProject) return;
+        // Default to REAL VIEW first
+        currentImageSet = 'real';
+        currentIndex = 0;
+        updateMainImage();
+        renderPartitionedThumbnails();
         galleryOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
-    function updateGalleryDisplay() {
-        if (!currentGalleryProject) return;
-        galleryMainImg.src = currentGalleryProject.images[currentGalleryIndex];
-        galleryTitle.textContent = currentGalleryProject.title;
-        galleryDesc.textContent = currentGalleryProject.description;
-        renderGalleryThumbnails();
-    }
-
-    function renderGalleryThumbnails() {
-        galleryThumbnails.innerHTML = '';
-        currentGalleryProject.images.forEach((imgSrc, index) => {
-            const thumb = document.createElement('div');
-            thumb.className = 'gallery-thumb';
-            if (index === currentGalleryIndex) thumb.classList.add('active');
-            const img = document.createElement('img');
-            img.src = imgSrc;
-            thumb.appendChild(img);
-            thumb.addEventListener('click', () => {
-                currentGalleryIndex = index;
-                updateGalleryDisplay();
-            });
-            galleryThumbnails.appendChild(thumb);
-        });
-    }
-
+    
     function closeGallery() {
         galleryOverlay.classList.remove('active');
         document.body.style.overflow = '';
     }
-
+    
     function openZoom(imageSrc) {
         zoomImg.src = imageSrc;
         zoomModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-
+    
     function closeZoom() {
         zoomModal.classList.remove('active');
         document.body.style.overflow = '';
     }
 
+    const galleryCloseBtn = document.getElementById('galleryCloseBtn');
     galleryCloseBtn.addEventListener('click', closeGallery);
     galleryOverlay.addEventListener('click', (e) => {
         if (e.target === galleryOverlay) closeGallery();

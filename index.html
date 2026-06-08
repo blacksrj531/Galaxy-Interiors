@@ -150,11 +150,6 @@
             opacity: 0;
             transform: scale(0.8);
         }
-        .custom-icon svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
-        }
         
         .preloader-logo {
             font-family: 'Cormorant Garamond', serif;
@@ -535,7 +530,7 @@
             .before-after-section { padding: 1.5rem; margin: 1rem auto; }
         }
 
-        /* Gallery Popup */
+        /* Gallery Popup - FIXED: Scrollbars properly contained inside card */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -556,20 +551,37 @@
             background: #1a1a1a;
             border-radius: 20px;
             border: 2px solid var(--accent);
-            overflow-y: auto;
-            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
             animation: popupFadeIn 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
-        .gallery-popup::-webkit-scrollbar { width: 6px; }
-        .gallery-popup::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
-        .gallery-popup::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        /* Custom scrollbar - stays inside the card */
+        .gallery-popup::-webkit-scrollbar {
+            width: 8px;
+        }
+        .gallery-popup::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+        .gallery-popup::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        /* Firefox scrollbar */
+        .gallery-popup {
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) rgba(255, 255, 255, 0.05);
+        }
+
         @keyframes popupFadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
+
         .gallery-header {
             display: flex;
             justify-content: flex-end;
@@ -579,8 +591,8 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            background: #0a0a0a;
         }
+
         .gallery-close-btn {
             background: none;
             border: none;
@@ -599,15 +611,17 @@
             color: var(--accent);
             transform: scale(1.1);
         }
+
         .gallery-main {
             padding: 20px;
             text-align: center;
             background: #0a0a0a;
-            min-height: 450px;
+            min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            flex-shrink: 0;
         }
         .gallery-main img {
             max-width: 100%;
@@ -618,11 +632,13 @@
             cursor: pointer;
         }
         .gallery-main img:hover { transform: scale(1.02); }
+
         .gallery-info-section {
             padding: 18px 25px;
             background: #1a1a1a;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
         }
         .gallery-info-section h3 {
             font-family: 'Cormorant Garamond', serif;
@@ -635,17 +651,30 @@
             font-size: 0.9rem;
             line-height: 1.6;
         }
+
         .gallery-thumbnails-section {
             padding: 15px 20px;
             display: flex;
             gap: 12px;
             overflow-x: auto;
+            overflow-y: hidden;
             background: #141414;
-            min-height: 110px;
+            min-height: auto;
+            flex-shrink: 0;
         }
-        .gallery-thumbnails-section::-webkit-scrollbar { height: 5px; }
-        .gallery-thumbnails-section::-webkit-scrollbar-track { background: var(--border); border-radius: 10px; }
-        .gallery-thumbnails-section::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        /* Horizontal scrollbar styling */
+        .gallery-thumbnails-section::-webkit-scrollbar {
+            height: 6px;
+        }
+        .gallery-thumbnails-section::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .gallery-thumbnails-section::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
         .gallery-thumb {
             flex-shrink: 0;
             width: 110px;
@@ -669,6 +698,17 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-main { min-height: 300px; }
+            .gallery-main img { max-height: 40vh; }
+            .gallery-info-section { padding: 12px 15px; }
+            .gallery-info-section h3 { font-size: 1.2rem; }
+            .gallery-info-section p { font-size: 0.8rem; }
+            .gallery-thumb { width: 80px; height: 65px; }
+            .gallery-thumbnails-section { padding: 12px 15px; }
+            .gallery-popup::-webkit-scrollbar { width: 5px; }
         }
 
         /* Fullscreen Zoom Modal */
@@ -719,16 +759,9 @@
         }
         @media (max-width: 768px) {
             .zoom-close { top: 10px; right: 15px; font-size: 1.8rem; width: 40px; height: 40px; }
-            .gallery-main { min-height: 300px; }
-            .gallery-main img { max-height: 40vh; }
-            .gallery-info-section { padding: 12px 15px; }
-            .gallery-info-section h3 { font-size: 1.2rem; }
-            .gallery-info-section p { font-size: 0.8rem; }
-            .gallery-thumb { width: 80px; height: 65px; }
-            .gallery-thumbnails-section { padding: 12px 15px; min-height: 95px; }
         }
 
-        /* Corporate Sections */
+        /* Rest of your existing styles remain exactly the same */
         .corporate-section {
             background: var(--bg-card);
             border-radius: 24px;
@@ -1263,21 +1296,19 @@
         </div>
     </section>
 
-    <!-- BEFORE & AFTER SLIDERS SECTION - ONLY 2 SLIDERS WITH FIXED TEXT -->
+    <!-- BEFORE & AFTER SLIDERS SECTION -->
     <section id="before-after">
         <div class="section-sub">Transformation Showcase</div>
         <div class="section-title">Before & After</div>
         
-        <!-- Slider 1: Rajmahal Villa -->
+        <!-- Slider 1: White Elephant Cafe -->
         <div class="before-after-section">
             <div class="project-title">🏠 White Elephant Cafe, Cuttack</div>
             <div class="comparison-slider" id="comparisonSlider1">
                 <div class="comparison-img-container">
-                    <img class="comparison-img" id="afterImage1" src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/White Elephant Cafe
-/2.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="After Design - Completed Project">
+                    <img class="comparison-img" id="afterImage1" src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/White%20Elephant%20Cafe/2.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="After Design - Completed Project">
                     <div class="comparison-overlay" id="comparisonOverlay1">
-                        <img id="beforeImage1" src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/White Elephant Cafe
-/1.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Elevation - Design Plan">
+                        <img id="beforeImage1" src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/White%20Elephant%20Cafe/1.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Elevation - Design Plan">
                     </div>
                     <div class="slider-handle" id="sliderHandle1"></div>
                 </div>
@@ -1288,7 +1319,7 @@
             </div>
         </div>
 
-        <!-- Slider 2: Serenity Cove Villa -->
+        <!-- Slider 2: Demo Project -->
         <div class="before-after-section">
             <div class="project-title">🌿 Demo - Bhubaneswar, India</div>
             <div class="comparison-slider" id="comparisonSlider2">
@@ -1330,7 +1361,7 @@
         <img id="zoomImg" src="" alt="Zoomed Image">
     </div>
 
-    <!-- About Sections (condensed for length) -->
+    <!-- About Sections -->
     <section id="about">
         <div class="section-sub">Who We Are</div>
         <div class="section-title">Executive Summary & About Us</div>

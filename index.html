@@ -530,7 +530,7 @@
             .before-after-section { padding: 1.5rem; margin: 1rem auto; }
         }
 
-        /* Gallery Popup - WITH PARTITIONED THUMBNAILS (RESPECTS LIGHT/DARK THEME) */
+        /* Gallery Popup - WITH PARTITIONED THUMBNAILS & AMBIENCE BACKGROUND */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -598,26 +598,49 @@
             transform: scale(1.1);
         }
 
+        /* AMBIENCE BACKGROUND - Radial gradient glow behind the image */
         .gallery-main {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
-            background: var(--bg-primary);
-            min-height: 400px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            min-height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             flex-shrink: 0;
+            position: relative;
+            transition: background 0.3s ease;
         }
+        
+        /* Subtle animated glow effect overlay */
+        .gallery-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.3) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
         .gallery-main img {
             max-width: 100%;
             max-height: 55vh;
             border-radius: 12px;
             object-fit: contain;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
         }
-        .gallery-main img:hover { transform: scale(1.02); }
+        .gallery-main img:hover { 
+            transform: scale(1.02); 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.3);
+        }
 
         .gallery-info-section {
             padding: 18px 25px;
@@ -625,6 +648,7 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
+            backdrop-filter: blur(8px);
         }
         .gallery-info-section h3 {
             font-family: 'Cormorant Garamond', serif;
@@ -709,7 +733,7 @@
         }
 
         @media (max-width: 768px) {
-            .gallery-main { min-height: 300px; }
+            .gallery-main { min-height: 300px; padding: 20px; }
             .gallery-main img { max-height: 40vh; }
             .gallery-info-section { padding: 12px 15px; }
             .gallery-info-section h3 { font-size: 1.2rem; }
@@ -1289,9 +1313,9 @@
                 <img src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/1.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
                 <div class="project-overlay"><h3>STUDIO AKIDI</h3><p>Rupali square, Bhubaneswar</p></div>
             </div>
-            <div class="project-card" data-project="antilia">
-                <img src="https://images.pexels.com/photos/2587056/pexels-photo-2587056.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
-                <div class="project-overlay"><h3>Antilia Sky Estate</h3><p>Mumbai, Maharashtra</p></div>
+            <div class="project-card" data-project="aasma">
+                <img src="https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/1.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
+                <div class="project-overlay"><h3>Aasma Courtyard</h3><p>Paradeep, Odisha</p></div>
             </div>
             <div class="project-card" data-project="pichola">
                 <img src="https://images.pexels.com/photos/2251246/pexels-photo-2251246.jpeg?auto=compress&cs=tinysrgb&w=800" alt="">
@@ -1632,7 +1656,7 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // Gallery Data with separated DESIGN and REAL images for each project
+    // Gallery Data with Aasma Courtyard added as 2nd card
     const galleryData = {
         STUDIO_AKIDI: {
             title: "STUDIO AKIDI - Rupali square, Bhubaneswar",
@@ -1648,6 +1672,28 @@
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/3.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/4.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/5.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ]
+        },
+        // NEW AASMA COURTYARD CARD - 2nd Signature Work
+        aasma: {
+            title: "Aasma Courtyard - Paradeep, Odisha",
+            description: "A state-of-the-art luxury hotel designed to offer a premium guest experience. The project encompasses 32 ultra-comfortable bedrooms, a spacious banquet hall, a modern conference hall, a restaurant, a cozy coffee house, a reception area, a waiting lounge, and beautifully crafted corridors. Total Area: 30,000 Sq. Ft. | Status: Completed & Successfully Handed Over. Pictured here is the magnificent exterior view of the completed property.",
+            designImages: [
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/design/1.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/design/2.jpeg?auto=compress&cs=tinysrgb&w=800"
+            ],
+            realImages: [
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/1.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/2.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/3.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/4.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/5.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/6.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/7.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/8.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/9.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/10.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Aasma_Hotel/After_work/Video_1.mp4"
             ]
         },
         antilia: {

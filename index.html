@@ -530,7 +530,7 @@
             .before-after-section { padding: 1.5rem; margin: 1rem auto; }
         }
 
-        /* Gallery Popup - WITH AMBIENCE BACKGROUND */
+        /* Gallery Popup - WITH PARTITIONED THUMBNAILS (RESPECTS LIGHT/DARK THEME) */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -598,22 +598,18 @@
             transform: scale(1.1);
         }
 
-        /* AMBIENCE BACKGROUND - Radial gradient glow behind the image */
         .gallery-main {
-            padding: 30px;
+            padding: 20px;
             text-align: center;
-            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            min-height: 450px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+            min-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             flex-shrink: 0;
             position: relative;
-            transition: background 0.3s ease;
         }
-        
-        /* Subtle animated glow effect overlay */
         .gallery-main::before {
             content: '';
             position: absolute;
@@ -625,7 +621,6 @@
             pointer-events: none;
             z-index: 1;
         }
-        
         .gallery-main img, .gallery-main video {
             max-width: 100%;
             max-height: 55vh;
@@ -1382,7 +1377,7 @@
         </div>
     </section>
 
-    <!-- Gallery Popup with Partitioned Thumbnails & Ambience Background -->
+    <!-- Gallery Popup with Partitioned Thumbnails -->
     <div id="galleryOverlay" class="gallery-overlay">
         <div class="gallery-popup">
             <div class="gallery-header">
@@ -1666,7 +1661,7 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // Gallery Data with Aasma Courtyard
+    // Gallery Data with Aasma Courtyard and STUDIO AKIDI videos added
     const galleryData = {
         STUDIO_AKIDI: {
             title: "STUDIO AKIDI - Rupali square, Bhubaneswar",
@@ -1681,7 +1676,10 @@
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/2.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/3.jpeg?auto=compress&cs=tinysrgb&w=800",
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/4.jpeg?auto=compress&cs=tinysrgb&w=800",
-                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/5.jpeg?auto=compress&cs=tinysrgb&w=800"
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/5.jpeg?auto=compress&cs=tinysrgb&w=800",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/Video_1.mp4",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/Video_2.mp4",
+                "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/Video_3.mp4"
             ]
         },
         aasma: {
@@ -1761,7 +1759,7 @@
     const zoomCloseBtn = document.getElementById('zoomCloseBtn');
 
     function isVideo(url) {
-        return url && (url.includes('.mp4') || url.includes('Video_1.mp4'));
+        return url && (url.includes('.mp4') || url.includes('Video_'));
     }
 
     function renderMedia(src, container, isZoom = false) {
@@ -2099,7 +2097,7 @@
     
     const themeToggle = document.getElementById('themeToggle'), themeIcon = themeToggle?.querySelector('i');
     if(themeToggle) { themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); if(document.body.classList.contains('light')) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); localStorage.setItem('theme','light'); } else { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); localStorage.setItem('theme','dark'); } }); if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light'); themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); } }
-    window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%;'; else nav.style.padding = '1.5rem 5%;'; });
+    window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%'; else nav.style.padding = '1.5rem 5%'; });
 </script>
 </body>
 </html>

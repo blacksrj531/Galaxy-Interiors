@@ -530,7 +530,7 @@
             .before-after-section { padding: 1.5rem; margin: 1rem auto; }
         }
 
-        /* Gallery Popup - WITH PARTITIONED THUMBNAILS & AMBIENCE BACKGROUND */
+        /* Gallery Popup - WITH AMBIENCE BACKGROUND */
         .gallery-overlay {
             display: none;
             position: fixed;
@@ -626,7 +626,7 @@
             z-index: 1;
         }
         
-        .gallery-main img {
+        .gallery-main img, .gallery-main video {
             max-width: 100%;
             max-height: 55vh;
             border-radius: 12px;
@@ -637,7 +637,7 @@
             z-index: 2;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
         }
-        .gallery-main img:hover { 
+        .gallery-main img:hover, .gallery-main video:hover { 
             transform: scale(1.02); 
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.3);
         }
@@ -717,6 +717,7 @@
             border: 2px solid transparent;
             transition: all 0.2s ease;
             opacity: 0.6;
+            position: relative;
         }
         .gallery-thumb.active {
             border-color: var(--accent);
@@ -726,18 +727,28 @@
             opacity: 1;
             transform: scale(1.02);
         }
-        .gallery-thumb img {
+        .gallery-thumb img, .gallery-thumb video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+        .gallery-thumb .video-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: rgba(0,0,0,0.7);
+            color: var(--accent);
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
 
         @media (max-width: 768px) {
             .gallery-main { min-height: 300px; padding: 20px; }
-            .gallery-main img { max-height: 40vh; }
-            .gallery-info-section { padding: 12px 15px; }
-            .gallery-info-section h3 { font-size: 1.2rem; }
-            .gallery-info-section p { font-size: 0.8rem; }
+            .gallery-main img, .gallery-main video { max-height: 40vh; }
             .gallery-thumb { width: 75px; height: 60px; }
             .gallery-thumbnails-partition { padding: 12px 15px; gap: 12px; }
             .thumb-group-title { font-size: 0.65rem; }
@@ -758,11 +769,12 @@
             cursor: pointer;
         }
         .zoom-modal.active { display: flex; }
-        .zoom-modal img {
+        .zoom-modal img, .zoom-modal video {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
             animation: zoomFadeIn 0.3s ease;
+            border-radius: 8px;
         }
         .zoom-close {
             position: absolute;
@@ -1370,15 +1382,13 @@
         </div>
     </section>
 
-    <!-- Gallery Popup with Partitioned Thumbnails -->
+    <!-- Gallery Popup with Partitioned Thumbnails & Ambience Background -->
     <div id="galleryOverlay" class="gallery-overlay">
         <div class="gallery-popup">
             <div class="gallery-header">
                 <button class="gallery-close-btn" id="galleryCloseBtn">&times;</button>
             </div>
-            <div class="gallery-main">
-                <img id="galleryMainImg" src="" alt="Gallery Image">
-            </div>
+            <div class="gallery-main" id="galleryMain"></div>
             <div class="gallery-info-section">
                 <h3 id="galleryTitle">Project Name</h3>
                 <p id="galleryDesc">Project description will appear here...</p>
@@ -1390,7 +1400,7 @@
     <!-- Fullscreen Zoom Modal -->
     <div id="zoomModal" class="zoom-modal">
         <div class="zoom-close" id="zoomCloseBtn">&times;</div>
-        <img id="zoomImg" src="" alt="Zoomed Image">
+        <div id="zoomContent"></div>
     </div>
 
     <!-- About Sections -->
@@ -1656,7 +1666,7 @@
         if (percentSpan) percentSpan.innerText = Math.floor(progress) + "%";
     }, 120);
 
-    // Gallery Data with Aasma Courtyard added as 2nd card
+    // Gallery Data with Aasma Courtyard
     const galleryData = {
         STUDIO_AKIDI: {
             title: "STUDIO AKIDI - Rupali square, Bhubaneswar",
@@ -1674,7 +1684,6 @@
                 "https://cdn.jsdelivr.net/gh/blacksrj531/Galaxy-Interiors/assets/images/Akidi_Studio/Afterwork/5.jpeg?auto=compress&cs=tinysrgb&w=800"
             ]
         },
-        // NEW AASMA COURTYARD CARD - 2nd Signature Work
         aasma: {
             title: "Aasma Courtyard - Paradeep, Odisha",
             description: "A state-of-the-art luxury hotel designed to offer a premium guest experience. The project encompasses 32 ultra-comfortable bedrooms, a spacious banquet hall, a modern conference hall, a restaurant, a cozy coffee house, a reception area, a waiting lounge, and beautifully crafted corridors. Total Area: 30,000 Sq. Ft. | Status: Completed & Successfully Handed Over. Pictured here is the magnificent exterior view of the completed property.",
@@ -1738,18 +1747,43 @@
     };
 
     let currentProject = null;
-    let currentImageSet = null; // 'design' or 'real'
+    let currentImageSet = null;
     let currentIndex = 0;
 
     const galleryOverlay = document.getElementById('galleryOverlay');
-    const galleryMainImg = document.getElementById('galleryMainImg');
+    const galleryMain = document.getElementById('galleryMain');
     const galleryTitle = document.getElementById('galleryTitle');
     const galleryDesc = document.getElementById('galleryDesc');
     const thumbsContainer = document.getElementById('galleryThumbnailsPartition');
 
     const zoomModal = document.getElementById('zoomModal');
-    const zoomImg = document.getElementById('zoomImg');
+    const zoomContent = document.getElementById('zoomContent');
     const zoomCloseBtn = document.getElementById('zoomCloseBtn');
+
+    function isVideo(url) {
+        return url && (url.includes('.mp4') || url.includes('Video_1.mp4'));
+    }
+
+    function renderMedia(src, container, isZoom = false) {
+        container.innerHTML = '';
+        if (isVideo(src)) {
+            const video = document.createElement('video');
+            video.src = src;
+            video.controls = true;
+            video.style.maxWidth = '100%';
+            video.style.maxHeight = isZoom ? '90vh' : '55vh';
+            video.style.borderRadius = '12px';
+            container.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = src;
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = isZoom ? '90vh' : '55vh';
+            img.style.borderRadius = '12px';
+            img.style.cursor = 'pointer';
+            container.appendChild(img);
+        }
+    }
 
     function renderPartitionedThumbnails() {
         if (!currentProject) return;
@@ -1787,9 +1821,27 @@
         currentProject.realImages.forEach((src, idx) => {
             const thumb = document.createElement('div');
             thumb.className = 'gallery-thumb' + (currentImageSet === 'real' && currentIndex === idx ? ' active' : '');
-            const img = document.createElement('img');
-            img.src = src;
-            thumb.appendChild(img);
+            
+            if (isVideo(src)) {
+                const video = document.createElement('video');
+                video.src = src;
+                video.muted = true;
+                video.style.width = '100%';
+                video.style.height = '100%';
+                video.style.objectFit = 'cover';
+                thumb.appendChild(video);
+                const badge = document.createElement('div');
+                badge.className = 'video-badge';
+                badge.innerHTML = '<i class="fas fa-play"></i>';
+                thumb.appendChild(badge);
+                video.addEventListener('mouseenter', () => video.play());
+                video.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+            } else {
+                const img = document.createElement('img');
+                img.src = src;
+                thumb.appendChild(img);
+            }
+            
             thumb.onclick = (e) => {
                 e.stopPropagation();
                 currentImageSet = 'real';
@@ -1819,21 +1871,24 @@
     
     function updateMainImage() {
         if (!currentProject) return;
-        let imgUrl = '';
-        if (currentImageSet === 'design') {
-            imgUrl = currentProject.designImages[currentIndex];
-        } else {
-            imgUrl = currentProject.realImages[currentIndex];
-        }
-        galleryMainImg.src = imgUrl;
+        let url = currentImageSet === 'design' ? currentProject.designImages[currentIndex] : currentProject.realImages[currentIndex];
+        renderMedia(url, galleryMain, false);
         galleryTitle.textContent = currentProject.title;
         galleryDesc.textContent = currentProject.description;
+        
+        const media = galleryMain.querySelector('img, video');
+        if (media) {
+            media.onclick = () => {
+                renderMedia(url, zoomContent, true);
+                zoomModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+        }
     }
     
     function openGallery(projectId) {
         currentProject = galleryData[projectId];
         if (!currentProject) return;
-        // Default to REAL VIEW first
         currentImageSet = 'real';
         currentIndex = 0;
         updateMainImage();
@@ -1845,16 +1900,13 @@
     function closeGallery() {
         galleryOverlay.classList.remove('active');
         document.body.style.overflow = '';
-    }
-    
-    function openZoom(imageSrc) {
-        zoomImg.src = imageSrc;
-        zoomModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        const video = galleryMain.querySelector('video');
+        if (video) video.pause();
     }
     
     function closeZoom() {
         zoomModal.classList.remove('active');
+        zoomContent.innerHTML = '';
         document.body.style.overflow = '';
     }
 
@@ -1862,10 +1914,6 @@
     galleryCloseBtn.addEventListener('click', closeGallery);
     galleryOverlay.addEventListener('click', (e) => {
         if (e.target === galleryOverlay) closeGallery();
-    });
-    galleryMainImg.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (galleryMainImg.src) openZoom(galleryMainImg.src);
     });
     zoomCloseBtn.addEventListener('click', closeZoom);
     zoomModal.addEventListener('click', (e) => {
@@ -1990,7 +2038,7 @@
         let mx=0,my=0,fx=0,fy=0;
         document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; cursor.style.transform = `translate(${mx}px, ${my}px)`; fx = mx; fy = my; });
         function anim() { fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12; cf.style.transform = `translate(${fx}px, ${fy}px)`; requestAnimationFrame(anim); } anim();
-        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn, .gallery-thumb, .gallery-close-btn, .zoom-close, .gallery-main img, .slider-handle').forEach(el => {
+        document.querySelectorAll('a, button, .cta-btn, .nav-links a, .social-links a, .project-card, .service-content, .market-card, .carousel-dot, .floating-btn, .gallery-thumb, .gallery-close-btn, .zoom-close, .slider-handle').forEach(el => {
             el.addEventListener('mouseenter', () => { cursor.style.width = '70px'; cursor.style.height = '70px'; cursor.style.background = 'rgba(212, 175, 55, 0.3)'; cursor.style.backdropFilter = 'blur(4px)'; cf.style.opacity = '0'; });
             el.addEventListener('mouseleave', () => { cursor.style.width = '32px'; cursor.style.height = '32px'; cursor.style.background = '#d4af37'; cursor.style.backdropFilter = 'none'; cf.style.opacity = '0.6'; });
         });
@@ -2051,7 +2099,7 @@
     
     const themeToggle = document.getElementById('themeToggle'), themeIcon = themeToggle?.querySelector('i');
     if(themeToggle) { themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); if(document.body.classList.contains('light')) { themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); localStorage.setItem('theme','light'); } else { themeIcon.classList.remove('fa-sun'); themeIcon.classList.add('fa-moon'); localStorage.setItem('theme','dark'); } }); if(localStorage.getItem('theme') === 'light') { document.body.classList.add('light'); themeIcon.classList.remove('fa-moon'); themeIcon.classList.add('fa-sun'); } }
-    window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%'; else nav.style.padding = '1.5rem 5%'; });
+    window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if(window.scrollY > 50) nav.style.padding = '1rem 5%;'; else nav.style.padding = '1.5rem 5%;'; });
 </script>
 </body>
 </html>
